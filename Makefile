@@ -4,10 +4,10 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-thesis.pdf: thesis.tex
+thesis.pdf: *.tex
 	pdflatex thesis.tex
 	pdflatex thesis.tex
 
 clean:
-	-rm cmpthesis.pdf
+	-rm thesis.pdf
 	-rm *.log *.aux *.toc *.idx *.ilg *.ind *.out

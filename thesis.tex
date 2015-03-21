@@ -1,5 +1,5 @@
-% Document:
-% Author:
+% Document: Bachelor Thesis: Minimal Problem Solver Generator
+% Author: Pavel Trutman
 
 \documentclass[msc]{cmpthesis}
 
@@ -19,7 +19,8 @@
 %\def\Ax{\mathbf{A}_x}
 
 % =========================================================== settings
-\graphicspath{{fig-ch01/}{fig-ch02/}}
+%\graphicspath{{fig-ch01/}{fig-ch02/}}
+\graphicspath{{images/}}
 
 % ========================================================== text body
 \begin{document}
@@ -37,9 +38,15 @@
 
 \input{abbreviations}
 
-%\includeonly{ch01}
-\include{ch01}
-%\include{ch02}
+\input{introduction.tex}
+
+\input{polynomial-system-solving.tex}
+
+\input{automatic-generator.tex}
+
+\input{experiments.tex}
+
+\input{conclusion.tex}
 
 %\appendix
 %\include{app01}
