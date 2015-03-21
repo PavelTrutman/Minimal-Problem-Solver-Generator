@@ -1,0 +1,53 @@
+% CMPthesis: LaTeX class for both master and phd thesis
+% ch01.tex: chapter 1 for test and demonstration
+% (c) 2007 Vit Zyka
+%
+% 2007-03-23 v0.1 first version
+% 2008-05-19 v0.2 side caption figure examples
+
+\chapter{Introduction}
+Some introduction text\dots
+
+\section{Motivation}
+My motivation\dots
+\begin{figure}
+  \centering
+  \includegraphics[width=.6\LW]{images/cmp}
+  \caption{CMP logo\index{logo}.}
+  \label{fig:cmp}
+\end{figure}
+\input knuth
+\input knuth
+
+\section{State of the art}
+\input knuth
+\input knuth
+
+\section{Thesis structure}
+Structure\index{structure}\dots
+\begin{figure}
+  \centering
+  \includegraphics[width=.6\LW]{images/lev}
+  \caption{This technical leon with compasses is the logo\index{logo}
+    of the Czech Technical University in Prague.}
+  \label{fig:lev}
+\end{figure}
+\input knuth
+
+\input knuth
+\begin{figure}[bt]
+  \begin{captionbeside}
+    {This technical leon with compasses is the logo\index{logo}
+    of the Czech Technical University in Prague.}
+    [o] % o=outer | i | l | r
+    [\linewidth][0pt]
+    \includegraphics[width=.4\LW]{images/lev}
+  \end{captionbeside}
+  \label{fig:lev2}
+\end{figure}
+
+\input knuth
+
+\endinput
+
+% end of ch01.tex

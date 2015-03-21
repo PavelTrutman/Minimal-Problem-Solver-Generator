@@ -1,0 +1,50 @@
+% Document:
+% Author:
+
+\documentclass[msc]{cmpthesis}
+
+\startThesisInfo
+\title{Minimal Problem Solver Generator}
+\author{Pavel Trutman}
+\CMPAdvisor{Ing. Tom\'a\v s Pajdla, PhD.}
+\CMPReportNo{}
+\CMPAcknowledgement{\centering Acknowledge grants here. Use centering
+   if the text is too short.}
+
+\CMPEmail{pavel.trutman@fel.cvut.cz}
+\CMPDocumentURL{http://cmp.felk.cvut.cz/~trutmpav/theses/bsc-pavel-trutman.pdf}
+\stopThesisInfo
+
+% ============================== your definitions (abbreviations etc.)
+%\def\Ax{\mathbf{A}_x}
+
+% =========================================================== settings
+\graphicspath{{fig-ch01/}{fig-ch02/}}
+
+% ========================================================== text body
+\begin{document}
+
+\maketitle[3]
+
+\cleardoublepage\def\thepage{\roman{page}}\setcounter{page}{3}
+\input{acknowledgement}
+\clearpage
+\chapter*{Abstract}\input{abstract}
+\clearpage
+\chapter*{Resum\'e}\input{resume}
+\cleardoublepage\def\thepage{\arabic{page}}\setcounter{page}{1}
+\tableofcontents\pagestyle{headings}
+
+\input{abbreviations}
+
+%\includeonly{ch01}
+\include{ch01}
+%\include{ch02}
+
+%\appendix
+%\include{app01}
+
+\clearpage\bibliographystyle{plain}%\bibliography{...}
+\clearpage\printindex
+
+\end{document}
