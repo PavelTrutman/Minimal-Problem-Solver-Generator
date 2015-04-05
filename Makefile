@@ -6,6 +6,8 @@ pdf: thesis.pdf
 
 thesis.pdf: *.tex
 	pdflatex thesis.tex
+	bibtex thesis
+	pdflatex thesis.tex
 	pdflatex thesis.tex
 
 clean:
