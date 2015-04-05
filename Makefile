@@ -4,7 +4,7 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-thesis.pdf: *.tex
+thesis.pdf: *.tex *.bib
 	pdflatex thesis.tex
 	bibtex thesis
 	pdflatex thesis.tex
