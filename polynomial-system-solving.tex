@@ -4,9 +4,19 @@ Firstly we review the state of the art algorithms for computing Gr\"obner basis.
 \section{Buchberger's Algorithm}
 Buchberger's Algorithm was the first algorithm for computing Gr\"obener basis and it was invented by Bruno Buchberger.
 
+\subsection{First implementation}
 The first and easy, but very inefficient, implementation of this algorithm says that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all nonzero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$.  The pseudocode of this algorithm can be found as Theorem 2 in Section 2, \S 7 in \cite{Cox-Little-Shea97}. Gr\"obner basis computed by this algorithm are often bigger than necessary.
 
 \section{$F_4$ Algorithm}
 The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by the simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation and by use of sparse linear algebra methods. $F_4$  speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of single matrix.
+
+MAIN
+
+UPDATE
+
+\subsection{Function Symbolic Preprocessing}
+In the first part of the function Symbolic Preprocessing we get set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then are these tuples simplified by function Simplify and after multiplying polynomials with corresponding monomials are results put into the set $F$.
+
+After that the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from $G$ (future Gr\"obner basis) such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. Found polynomial $f$ and monomial $m^\prime$ are after simplification multiplied and put into set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that after polynomial division (using linear algebra) all added polynomials will be reduced for $G$.
 
 \section{$F_5$ Algorithm}
