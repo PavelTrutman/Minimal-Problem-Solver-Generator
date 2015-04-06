@@ -5,18 +5,31 @@ Firstly we review the state of the art algorithms for computing Gr\"obner basis.
 Buchberger's Algorithm was the first algorithm for computing Gr\"obener basis and it was invented by Bruno Buchberger.
 
 \subsection{First implementation}
-The first and easy, but very inefficient, implementation of this algorithm says that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all nonzero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$.  The pseudocode of this algorithm can be found as Theorem 2 in Section 2, \S 7 in \cite{Cox-Little-Shea97}. Gr\"obner basis computed by this algorithm are often bigger than necessary.
+The first and easy, but very inefficient, implementation of this algorithm says that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all nonzero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$.  The pseudocode of this algorithm can be found in \cite{Cox-Little-Shea97} on page 87. Disadvatage of this simple algorithm is that computed Gr\"obner basis are often bigger than necessary.
 
 \section{$F_4$ Algorithm}
 The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by the simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation and by use of sparse linear algebra methods. $F_4$  speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of single matrix.
 
-MAIN
+\subsection{Improved Algorithm $F_4$}
+The main function of $F_4$ Algorithm consists of two parts. The goal of the first part is to initialize the whole algorithm. That means to generate required pairs and initialize future Gr\"obner basis $G$. This function takes each polynomial from the input set and calls function \textit{Update} on it, which updates set $P$ of pairs and set $G$.
 
-UPDATE
+Second part of this algorithm generates new polynomials and includes them into the set $G$. In each iteration it selects same pairs from $P$ using function \textit{Sel}. How to select pairs is an open question. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}.
+
+Then it split each pair into two tuples. First tuple contains first polynomial $f_1$ from the pair and monomial $t_1$ such $\textrm{LM}(t_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. Second tuple is constructed in the same way from the second polynomial from the pair. All tuples from all selected pairs are put into the set $L$ so duplicates are removed.
+
+Then it calls function \textit{Reduction} on the set $L$ and stores result in the set $\tilde{F}^+$. In the end it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls function \textit{Update} on each of them. This generates new pairs into the set $P$ and extends future Gr\"obner basis $G$.
+
+This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
+
+\subsection{Function Update}
+In this algorithm is used standard implementation of Buchberger Criteria \textbf{CITE Gebauer and Moller [GM88]}.
 
 \subsection{Function Symbolic Preprocessing}
-In the first part of the function Symbolic Preprocessing we get set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then are these tuples simplified by function Simplify and after multiplying polynomials with corresponding monomials are results put into the set $F$.
+In the first part of the function \textit{Symbolic Preprocessing} we get set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then are these tuples simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials are results put into the set $F$.
 
 After that the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from $G$ (future Gr\"obner basis) such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. Found polynomial $f$ and monomial $m^\prime$ are after simplification multiplied and put into set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that after polynomial division (using linear algebra) all added polynomials will be reduced for $G$.
+
+\subsection{Selection strategy}
+\label{subsec:F4:sel}
 
 \section{$F_5$ Algorithm}
