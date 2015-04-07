@@ -43,11 +43,18 @@ After that the function goes through all monomials in the set $F$ and for each m
 \subsection{Function Simplify}
 The purpose of the function \textit{Simplify} is obvious. It tries to simplify a polynomial which is product of multiplication of given monomial $m$ and polynomial $f$.
 
-Function recursively looks for monomial $m^\prime$ and polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select such polynomial $f^\prime$ th total degree of $m^\prime$ is minimal.
+Function recursively looks for monomial $m^\prime$ and polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select such polynomial $f^\prime$ that total degree of $m^\prime$ is minimal.
 
 This is done do insert into the set $F$ (set of polynomials ready to reduce) polynomials that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
 
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
+For the speed of the $F_4$ Algorithm is very important how to select in each iteration critical pairs from the list of all critical pairs $P$. This of course depends on the implemetation of the function \textit{Sel}. There are more possible implemetations:
+
+\begin{itemize}
+  \item The easiest implementation is to select all pairs from $P$. In this case we reduce all criticals pairs at the same time.
+  \item If the function \textit{Sel} selects only one critical pair then the $F_4$ Algorithm is the Buchberger's Algorithm. In this case the \textit{Sel} function corresponds to the selection strategy in the Buchberger's Algorithm.
+  \item The best function that Faug\`ere has tested is to select all critical pairs with a minimal total degree. Faug\`ere calls this strategy the \textit{normal strategy for} $F_4$.
+\end{itemize}
 
 \section{$F_5$ Algorithm}
