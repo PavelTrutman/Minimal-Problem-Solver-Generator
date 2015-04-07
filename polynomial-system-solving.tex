@@ -40,6 +40,13 @@ In the first part of the function \textit{Symbolic Preprocessing} we get set $L$
 
 After that the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from $G$ (future Gr\"obner basis) such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. Found polynomial $f$ and monomial $m^\prime$ are after simplification multiplied and put into set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that after polynomial division (using linear algebra) all added polynomials will be reduced for $G$.
 
+\subsection{Function Simplify}
+The purpose of the function \textit{Simplify} is obvious. It tries to simplify a polynomial which is product of multiplication of given monomial $m$ and polynomial $f$.
+
+Function recursively looks for monomial $m^\prime$ and polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select such polynomial $f^\prime$ th total degree of $m^\prime$ is minimal.
+
+This is done do insert into the set $F$ (set of polynomials ready to reduce) polynomials that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
+
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
 
