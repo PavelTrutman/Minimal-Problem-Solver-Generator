@@ -24,6 +24,17 @@ This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ i
 \subsection{Function Update}
 In this algorithm is used standard implementation of Buchberger Criteria \textbf{CITE Gebauer and Moller [GM88]}.
 
+\subsection{Function Reduction}
+Task of this function is simple, it performs polynomial division using methods of linear algebra.
+
+Input of this function is set $L$ containing tuples of monimial and polynomial, which were made in the main function of the $F_4$ Algorithm.
+
+First of all this function calls function \textit{Symbolic Preprocessing} on the set $L$. This returns set $F$ of polynomials ready to reduce. To use linear algebra methods to perform polynomial division we have to put the polynomials into matrix. Each column of the matrix corresponds to a monomial and the columns have to be ordered with respect to used ordering so the right most column corresponds to a monomial "1". On the other hand each row corresponds to a polynomial from the set $F$. Construction of the matrix is simple: on the $(i, j)$ posistion in the matrix we put coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
+
+If we have constructed matrix like this we can reduce it to a row echelon form using for example Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computing time and memory. After elimination we can construct resulting polynomials by multiplication of reduced matrix and vector of monomials.
+
+In the end the function returns set of reduced polynomials only with leading monomials which were not amongs polynomials before reduction.
+
 \subsection{Function Symbolic Preprocessing}
 In the first part of the function \textit{Symbolic Preprocessing} we get set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then are these tuples simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials are results put into the set $F$.
 
