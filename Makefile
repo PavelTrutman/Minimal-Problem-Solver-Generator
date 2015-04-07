@@ -4,6 +4,9 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
+fast: *.tex
+	pdflatex thesis.tex
+
 thesis.pdf: *.tex *.bib
 	pdflatex thesis.tex
 	bibtex thesis
