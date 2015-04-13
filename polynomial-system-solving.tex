@@ -1,23 +1,21 @@
 \chapter{Polynomial system solving}
-Firstly we review the state of the art algorithms for computing Gr\"obner basis. Better understanding of these algoritmhs helps us to more efficiently integrate them into polynomial solving algorithms based on Gr\"obner basis computation.
+Firstly we review the state of the art algorithms for computing Gr\"obner basis. Better understanding of these algorithms helps us to integrate them more efficiently into polynomial solving algorithms based on Gr\"obner basis computation.
 
 \section{Buchberger's Algorithm}
-Buchberger's Algorithm was the first algorithm for computing Gr\"obener basis and it was invented by Bruno Buchberger.
+Buchberger's Algorithm \cite{Cox-Little-Shea97}, which was invented by Bruno Buchberger, was the first algorithm for computing Gr\"obner basis.
 
 \subsection{First implementation}
-The first and easy, but very inefficient, implementation of this algorithm says that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all nonzero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$.  The pseudocode of this algorithm can be found in \cite{Cox-Little-Shea97} on page 87. Disadvatage of this simple algorithm is that computed Gr\"obner basis are often bigger than necessary.
+The first and easy, but very inefficient implementation of this algorithm is based on the observation that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all non-zero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$ until there is no non-zero remainder. The pseudocode of this algorithm can be found in \cite{Cox-Little-Shea97} on page 87. The main disadvatage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary.
 
 \section{$F_4$ Algorithm}
-The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by the simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation and by use of sparse linear algebra methods. $F_4$  speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of single matrix.
+The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by a simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation followed by Gaussian elimination implemented using sparse linear algebra methods. $F_4$ speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of a single matrix.
 
 \subsection{Improved Algorithm $F_4$}
-The main function of $F_4$ Algorithm consists of two parts. The goal of the first part is to initialize the whole algorithm. That means to generate required pairs and initialize future Gr\"obner basis $G$. This function takes each polynomial from the input set and calls function \textit{Update} on it, which updates set $P$ of pairs and set $G$.
+The main function of $F_4$ Algorithm consists of two parts. The goal of the first part is to initialize the whole algorithm. First, it generates required pairs and initializes Gr\"obner basis $G$. Then it takes each polynomial from the input set and calls function \textit{Update} on it, which updates the set $P$ of pairs and the set $G$ of basic polynomials.
 
-Second part of this algorithm generates new polynomials and includes them into the set $G$. In each iteration it selects same pairs from $P$ using function \textit{Sel}. How to select pairs is an open question. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}.
+The second part of the algorithm generates new polynomials and includes them into the set $G$. In each iteration, it selects same pairs from $P$ using function \textit{Sel}. How to best select the pairs, is still an open question. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}. Then, it splits each pair into two tuples. The first tuple contains the first polynomial $f_1$ of the pair and monomial $t_1$ such that $\textrm{LM}(t_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. The second tuple is constructed in the same way from the second polynomial of the pair. All tuples from all selected pairs are put into the set $L$, i.e. duplicates are removed.
 
-Then it split each pair into two tuples. First tuple contains first polynomial $f_1$ from the pair and monomial $t_1$ such $\textrm{LM}(t_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. Second tuple is constructed in the same way from the second polynomial from the pair. All tuples from all selected pairs are put into the set $L$ so duplicates are removed.
-
-Then it calls function \textit{Reduction} on the set $L$ and stores result in the set $\tilde{F}^+$. In the end it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls function \textit{Update} on each of them. This generates new pairs into the set $P$ and extends future Gr\"obner basis $G$.
+Next, it calls function \textit{Reduction} on the set $L$ and stores result in the set $\tilde{F}^+$. In the end it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls function \textit{Update} on each of them. This generates new pairs into the set $P$ and extends Gr\"obner basis $G$.
 
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
@@ -27,25 +25,25 @@ In this algorithm is used standard implementation of Buchberger Criteria \textbf
 \subsection{Function Reduction}
 Task of this function is simple, it performs polynomial division using methods of linear algebra.
 
-Input of this function is set $L$ containing tuples of monimial and polynomial, which were made in the main function of the $F_4$ Algorithm.
+Input of this function is a set $L$ containing tuples of monomial and polynomial, which were made in the main function of the $F_4$ Algorithm.
 
-First of all this function calls function \textit{Symbolic Preprocessing} on the set $L$. This returns set $F$ of polynomials ready to reduce. To use linear algebra methods to perform polynomial division we have to put the polynomials into matrix. Each column of the matrix corresponds to a monomial and the columns have to be ordered with respect to used ordering so the right most column corresponds to a monomial "1". On the other hand each row corresponds to a polynomial from the set $F$. Construction of the matrix is simple: on the $(i, j)$ posistion in the matrix we put coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
+First, this function calls function \textit{Symbolic Preprocessing} on the set $L$. This returns a set $F$ of polynomials to be reduced. To use linear algebra methods to perform polynomial division the polynomials have to be represented by a matrix. Each column of the matrix corresponds to a monomial and the columns have to be ordered with respect to the ordering used so that the most right column corresponds to ``1''. Each row of the matrix corresponds to a polynomial from the set $F$. Construction of the matrix is simple. On the $(i, j)$ posistion in the matrix, we put the coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
 
-If we have constructed matrix like this we can reduce it to a row echelon form using for example Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computing time and memory. After elimination we can construct resulting polynomials by multiplication of reduced matrix and vector of monomials.
+If we have constructed matrix like this we can reduce it to a row echelon form using, for example, Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computation time and memory. After elimination, we construct resulting polynomials by multiplying the reduced matrix by a vector of monomials from the \textbf{?????}.
 
-In the end the function returns set of reduced polynomials only with leading monomials which were not amongs polynomials before reduction.
+In the end, the function returns the set of reduced polynomials that have leading monomials which were not amongs polynomials before reduction.
 
 \subsection{Function Symbolic Preprocessing}
-In the first part of the function \textit{Symbolic Preprocessing} we get set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then are these tuples simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials are results put into the set $F$.
+Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then, these tuples are simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
 
-After that the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from $G$ (future Gr\"obner basis) such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. Found polynomial $f$ and monomial $m^\prime$ are after simplification multiplied and put into set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that after polynomial division (using linear algebra) all added polynomials will be reduced for $G$.
+Next, the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from Gr\"obner basis $G$ such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. All such polynomials $f$ and monomials $m^\prime$ are after simplification multiplied and put into the set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that all added polynomials will be reduced for $G$ after polynomial division (using linear algebra).
 
 \subsection{Function Simplify}
-The purpose of the function \textit{Simplify} is obvious. It tries to simplify a polynomial which is product of multiplication of given monomial $m$ and polynomial $f$.
+Function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
 
-Function recursively looks for monomial $m^\prime$ and polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select such polynomial $f^\prime$ that total degree of $m^\prime$ is minimal.
+The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select polynomial $f^\prime$ such that total degree of $m^\prime$ is minimal.
 
-This is done do insert into the set $F$ (set of polynomials ready to reduce) polynomials that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
+This is done to insert into the set $F$ (set of polynomials ready to reduce) polynomials such that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
 
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
