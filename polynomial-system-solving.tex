@@ -2,7 +2,7 @@
 Firstly we review the state of the art algorithms for computing Gr\"obner basis. Better understanding of these algorithms helps us to integrate them more efficiently into polynomial solving algorithms based on Gr\"obner basis computation.
 
 \section{Buchberger's Algorithm}
-Buchberger's Algorithm \cite{Buchberger}, which was invented by Bruno Buchberger, was the first algorithm for computing Gr\"obner basis.
+Buchberger's Algorithm \cite{Buchberger}, which was invented by Bruno Buchberger, was the first algorithm for computing Gr\"obner basis. The algorithm is described in details in \cite{Cox-Little-Shea97, Becker93}.
 
 \subsection{First implementation}
 The first and easy, but very inefficient implementation of this algorithm is based on the observation that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all non-zero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$ until there is no non-zero remainder. The main disadvatage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary.
