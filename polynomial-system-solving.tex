@@ -124,9 +124,37 @@ Next, the function goes through all monomials in the set $F$ and for each monomi
 \subsection{Function Simplify}
 Function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
 
-The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\prime$ such $\textrm{LM}(t^\prime\times f^\prime) = \textrm{LM}(t\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select polynomial $f^\prime$ such that total degree of $m^\prime$ is minimal.
+The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\prime$ such $\textrm{LM}(m^\prime\times f^\prime) = \textrm{LM}(m\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select polynomial $f^\prime$ such that total degree of $m^\prime$ is minimal.
 
 This is done to insert into the set $F$ (set of polynomials ready to reduce) polynomials such that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
+
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $m$ a monomial
+      \Statex $f$ a polynomial
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $(m^\prime, f^\prime)$ a non evaluated product of a monomial and a polynomial
+      \Statex
+
+    \For{$u \in$ list of all divisors of $m$}
+      \If{$\exists j\ (1 \leq j \le d)$ such that $(u\times f) \in F_j$}
+        \State $\tilde{F}_j$ is the Row Echelon Form of $F_j$
+        \State there exists a (unique) $p\in \tilde{F}^+_j$ such that $\textrm{LM}(p) = \textrm{LM}(u\times f)$
+        \If{$u\neq m$}
+          \State \Return $Simplify(\frac{m}{u}, p, \mathcal{F})$
+        \Else
+          \State \Return $(1, p)$
+        \EndIf
+      \EndIf
+    \EndFor
+
+    \State \Return $(m, f)$
+
+  \end{algorithmic}
+  \caption{Simplify}
+\end{algorithm}
 
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
