@@ -19,6 +19,41 @@ Next, it calls function \textit{Reduction} on the set $L$ and stores result in t
 
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
+\begin{algorithm}[ht]
+  \begin{algorithmic}[5]
+    \Require
+      \Statex $F$ a finite set of polynomials
+      \Statex $Sel$ a function $List(Pairs) \to List(Pairs)$ such that $Sel(l) \neq \emptyset$ if $l\neq\emptyset$
+    \Ensure
+      \Statex a finite set of polynomials
+      \Statex
+
+    \State $G \gets \emptyset$
+    \State $P \gets \emptyset$
+    \State $d \gets 0$
+
+    \While{$F \neq \emptyset$}
+      \State $f \gets first(F)$
+      \State $F \gets F\backslash \{f\}$
+      \State $(G, P) \gets Update(G, P, f)$
+    \EndWhile
+    
+    \While{$P\neq\emptyset$}
+      \State $d \gets d + 1$
+      \State $P_d \gets Sel(P)$
+      \State $P \gets P\backslash P_d$
+      \State $L_d \gets Left(P_d) \cup Right(P_d)$
+      \State $(\tilde{F}^+_d, F_d) \gets Reduction(L_d, G, (F_i)_{i=1,\ldots,(d-1)})$
+      \For{$h\in\tilde{F}^+_d$}
+        \State $(G, P) \gets Update(G, P, h)$
+      \EndFor
+    \EndWhile
+    \State \Return $G$
+
+  \end{algorithmic}
+  \caption{Improved Algorithm $F_4$}
+\end{algorithm}
+
 \subsection{Function Update}
 In this algorithm is used standard implementation of Buchberger Criteria \textbf{CITE Gebauer and Moller [GM88]}.
 
