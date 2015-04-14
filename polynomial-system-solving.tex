@@ -25,7 +25,7 @@ This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ i
       \Statex $F$ a finite set of polynomials
       \Statex $Sel$ a function $List(Pairs) \to List(Pairs)$ such that $Sel(l) \neq \emptyset$ if $l\neq\emptyset$
     \Ensure
-      \Statex a finite set of polynomials
+      \Statex $G$ a finite set of polynomials
       \Statex
 
     \State $G \gets \emptyset$
@@ -67,6 +67,27 @@ First, this function calls function \textit{Symbolic Preprocessing} on the set $
 If we have constructed matrix like this we can reduce it to a row echelon form using, for example, Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computation time and memory. After elimination, we construct resulting polynomials by multiplying the reduced matrix by a vector of monomials from the \textbf{?????}.
 
 In the end, the function returns the set of reduced polynomials that have leading monomials which were not amongs polynomials before reduction.
+
+\begin{algorithm}[ht]
+  \begin{algorithmic}[5]
+    \Require
+      \Statex $L$ a finite set of tuples of monomial and polynomial
+      \Statex $G$ a finite set of polynomials
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $\tilde{F}^+$ a finite set of polynomials
+      \Statex $F$ a finite set of polynomials
+      \Statex
+
+    \State $F \gets Symbolic\ Preprocessing(L, G, \mathcal{F})$
+    \State $\tilde{F} \gets$ Reduction to Row Echelon Form of $F$
+    \State $\tilde{F^+} \gets \left\{f \in \tilde{F}\ |\ \textrm{LM}(f) \notin \textrm{LM}(F)\right\}$
+
+    \State \Return $(\tilde{F}^+, F)$
+
+  \end{algorithmic}
+  \caption{Reduction}
+\end{algorithm}
 
 \subsection{Function Symbolic Preprocessing}
 Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then, these tuples are simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
