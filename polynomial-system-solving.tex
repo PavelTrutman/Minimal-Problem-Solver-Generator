@@ -166,4 +166,19 @@ For the speed of the $F_4$ Algorithm is very important how to select in each ite
   \item The best function that Faug\`ere has tested is to select all critical pairs with a minimal total degree. Faug\`ere calls this strategy the \textit{normal strategy for} $F_4$.
 \end{itemize}
 
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $P$ a list of critical pairs
+    \Ensure
+      \Statex $P_d$ a list of critical pairs
+      \Statex
+
+    \State $d \gets min\left\{\textrm{deg}(\textrm{lcm}(p))\ |\ p\in P\right\}$
+    \State $P_d \gets \left\{p\in P\ |\ \textrm{deg}(\textrm{lcm}(p)) = d\right\}$
+    \State \Return $P_d$
+  \end{algorithmic}
+  \caption{Sel -- The normal strategy for $F_4$}
+\end{algorithm}
+
 \section{$F_5$ Algorithm}
