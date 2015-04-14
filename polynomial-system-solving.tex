@@ -20,7 +20,7 @@ Next, it calls function \textit{Reduction} on the set $L$ and stores result in t
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
 \begin{algorithm}[ht]
-  \begin{algorithmic}[5]
+  \begin{algorithmic}[1]
     \Require
       \Statex $F$ a finite set of polynomials
       \Statex $Sel$ a function $List(Pairs) \to List(Pairs)$ such that $Sel(l) \neq \emptyset$ if $l\neq\emptyset$
@@ -69,7 +69,7 @@ If we have constructed matrix like this we can reduce it to a row echelon form u
 In the end, the function returns the set of reduced polynomials that have leading monomials which were not amongs polynomials before reduction.
 
 \begin{algorithm}[ht]
-  \begin{algorithmic}[5]
+  \begin{algorithmic}[1]
     \Require
       \Statex $L$ a finite set of tuples of monomial and polynomial
       \Statex $G$ a finite set of polynomials
@@ -93,6 +93,33 @@ In the end, the function returns the set of reduced polynomials that have leadin
 Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then, these tuples are simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
 
 Next, the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from Gr\"obner basis $G$ such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. All such polynomials $f$ and monomials $m^\prime$ are after simplification multiplied and put into the set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that all added polynomials will be reduced for $G$ after polynomial division (using linear algebra).
+
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $L$ a finite set of tuples of monomial and polynomial
+      \Statex $G$ a finite set of polynomials
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $F$ a finite set of polynomials
+      \Statex
+
+    \State $F \gets \left\{multiply(Simplify(m, f, \mathcal{F}))\ |\ (m, f)\in L\right\}$
+    \State $Done \gets \textrm{LM}(F)$
+    \While{$\textrm{M}(F) \neq Done$}
+      \State $m$ an element of $\textrm{M}(F)\backslash Done$
+      \State $Done \gets Done \cup \{m\}$
+      \If{$m$ is top reducible modulo $G$}
+        \State $m = m^\prime \times \textrm{LM}(f)$ for some $f \in G$ and some monomial $m^\prime$
+        \State $F \gets F \cup \left\{multiply(Simplify(m^\prime, f, \mathcal{F}))\right\}$
+      \EndIf
+    \EndWhile
+
+    \State \Return $F$
+
+  \end{algorithmic}
+  \caption{Symbolic Preprocessing}
+\end{algorithm}
 
 \subsection{Function Simplify}
 Function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
