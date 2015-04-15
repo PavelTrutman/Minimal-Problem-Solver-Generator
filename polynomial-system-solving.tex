@@ -2,7 +2,7 @@
 Firstly we review the state of the art algorithms for computing Gr\"obner basis. Better understanding of these algorithms helps us to integrate them more efficiently into polynomial solving algorithms based on Gr\"obner basis computation.
 
 \section{Buchberger's Algorithm}
-Buchberger's Algorithm \cite{Buchberger}, which was invented by Bruno Buchberger, was the first algorithm for computing Gr\"obner basis. The algorithm is described in details in \cite{Cox-Little-Shea97, Becker93}.
+Buchberger's Algorithm \cite{Buchberger65}, which was invented by Bruno Buchberger, was the first algorithm for computing Gr\"obner basis. The algorithm is described in details in \cite{Becker93, Cox-Little-Shea97}.
 
 \subsection{First implementation}
 The first and easy, but very inefficient implementation of this algorithm is based on the observation that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all non-zero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$ until there is no non-zero remainder. The main disadvatage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary.
@@ -20,10 +20,11 @@ The first and easy, but very inefficient implementation of this algorithm is bas
     \While{$B \neq \emptyset$}
       \State select $\left\{g_1, g_2\right\}$ from $B$
       \State $B \gets B\backslash\left\{\left\{g_1, g_2\right\}\right\}$
-      \State $h \gets \overline{S(g_1, g_2)}^G$
-      \If{$h \neq 0$}
-        \State $B \gets B \cup \left\{\left\{g, h\right\}\ |\ g\in G\right\}$
-        \State $G \gets G \cup \left\{h\right\}$
+      \State $h \gets S(g_1, g_2)$
+      \State $h_0 \gets \overline{h}^G$
+      \If{$h_0 \neq 0$}
+        \State $B \gets B \cup \left\{\left\{g, h_0\right\}\ |\ g\in G\right\}$
+        \State $G \gets G \cup \left\{h_0\right\}$
       \EndIf
     \EndWhile
 
@@ -32,6 +33,13 @@ The first and easy, but very inefficient implementation of this algorithm is bas
   \end{algorithmic}
   \caption{Simple Buchberger Algorithm}
 \end{algorithm}
+
+\subsection{Improved Buchberger Algorithm}
+The combinatorial complexity of the simple implementation of the Buchberger Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know, which pairs can be deleted without treatment, we use the first and the second Buchberger's criteria \cite{Becker93}. Moreover, we can even delete certain polynomials from the set $G$, knowing that every critical pair that will occur in is superfluous and that these polynomials themselves will be superfluous in the output set. We call this mechanism, that achives these deletions of critical pairs and polynomials, as the function \textit{Update}.  In the next few paragpraphs we will describe the implementation of the Improved Buchberger Algorithm and of the function \textit{Update} due to Gebauer and M\"oller \cite{Gebauer-Moller88}.
+
+The Improved Buchberger Algorithm has the same structure as the Simple Algorithm. The function \textit{Update} is used at the beginning of the Improved Buchberger Algorithm to initialize the set of critical pairs $B$ and the Gr\"obner basis $G$ from the input set $F$ of polynomials and at the point where a new non-zero polynomial $h_0 = \overline{h}^G$ of an S-polynomial $h$ has been found and the sets $B$ and $G$ are about to be updated.
+
+\input{alg/ImprovedBuchberger.tex}
 
 \section{$F_4$ Algorithm}
 The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by a simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation followed by Gaussian elimination implemented using sparse linear algebra methods. $F_4$ speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of a single matrix.
