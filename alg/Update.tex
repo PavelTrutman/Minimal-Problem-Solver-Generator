@@ -11,7 +11,7 @@
 
     \State $C \gets \left\{\left\{h, g\right\}\ |\ g\in G_{old}\right\}$
     \State $D \gets \emptyset$
-    \While{$C\neq \emptyset$}
+    \While{$C\neq \emptyset$} \label{alg:update:w1b}
       \State select $\{h,g_1\}$ from $C$
       \State $C \gets C\backslash \{\{h, g_1\}\}$
       \IfML{LM$(h)$ and LM$(g_1)$ are disjoint \textbf{or}}
@@ -19,21 +19,21 @@
         \StatexIndent[3]lcm(LM$(h)$, LM$(g_2)$) $\nmid$ lcm(LM$(h)$, LM$(g_1)$) for all $\{h, g_2\} \in D$) \algorithmicthen
         \State $D \gets D \cup \{\{h, g_1\}\}$
       \EndIf
-    \EndWhile
+    \EndWhile \label{alg:update:w1e}
 
     \State $E \gets \emptyset$
 
-    \While{$D \neq \emptyset$}
+    \While{$D \neq \emptyset$} \label{alg:update:w2b}
       \State select $\{h, g\}$ from $D$
       \State $D \gets D\backslash \{\{h, g\}\}$
       \If{LM$(h)$ and LM$(g)$ are not disjoint}
         \State $E \gets E \cup \{\{h, g\}\}$
       \EndIf
-    \EndWhile
+    \EndWhile \label{alg:update:w2e}
 
     \State $B_{new} \gets \emptyset$
 
-    \While{$B_{old} \neq \emptyset$}
+    \While{$B_{old} \neq \emptyset$} \label{alg:update:w3b}
       \State select $\{g_1, g_2\}$ from $B_{old}$
       \State $B_{old} \gets B_{old} \backslash \{\{g_1, g_2\}\}$
       \IfML{LM$(h) \nmid$ lcm(LM$(g_1)$, LM$(g_2)$) \textbf{or}}
@@ -41,7 +41,7 @@
         \StatexIndent[3]lcm(LM$(h)$, LM$(g_2)) = $ lcm(LM$(g_1)$, LM$(g_2)$) \algorithmicthen
         \State $B_{new} \gets B_{new} \cup \{\{g_1, g_2\}\}$
       \EndIf
-    \EndWhile
+    \EndWhile \label{alg:update:w3e}
 
     \State $B_{new} \gets B_{new} \cup E$
     \State $G_{new} \gets \emptyset$
@@ -58,4 +58,5 @@
 
   \end{algorithmic}
   \caption{Update}
+  \label{alg:update}
 \end{algorithm}

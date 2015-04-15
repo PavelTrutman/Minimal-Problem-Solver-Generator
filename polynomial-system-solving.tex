@@ -41,7 +41,13 @@ The Improved Buchberger Algorithm has the same structure as the Simple Algorithm
 
 \input{alg/ImprovedBuchberger.tex}
 
-Now, let us look at the function \textit{Update} in details.
+Now, let us look at the function \textit{Update} in more details. First, it makes all pairs of the new polynomial $h$ and all polynomials from the set $G_{old}$ and all such pairs puts into the set $C$. The first while loop on lines \ref{alg:update:w1b} -- \ref{alg:update:w1e} puts from the set $C$ into the set $D$ all pairs $\{h, g_1\}$ such that $(h, g_2, g_1)$ is not a Buchberger triple, where $\{h, g_2\}$ is an another pair from the set $C$ or the set $D$. From the second Buchberger's criterion we know that if a Buchberger triple $(h, g_2, g_1)$ shows up in a Buchberger Algorithm and the pairs $\{g_1, g_2\}$ and $\{h, g_2\}$ have been taken care of, then the pair $\{h, g_1\}$ need not to be treated. That means in our code that such a pair is not moved from the set $C$ to the set $D$, but it is only removed from the set $C$. This while loop keeps all pairs $\{h, g_1\}$ where LM$(h)$ and LM$(g_1)$ are disjoint. The reason is that if two or more pairs in $C$ have the same lcm of their leading monomials, then there is a choice which one should be deleted. So we keep one where the leading monomials are disjoint. Pairs with disjoint leading monomials are removed in the second while loop, so we eventually remove them all.
+
+As mentioned before the second while loop (lines \ref{alg:update:w2b} -- \ref{alg:update:w2e}) eliminates all pairs such their leading monomials are disjoint. All remaining pairs are stored in the set $E$. We can remove such pairs because of the first Buchberger's criterion.
+
+The third while loop on lines \ref{alg:update:w3b} -- \ref{alg:update:w3e} eliminates from the set $B_{old}$ of old pairs those pairs $\{g_1, g_2\}$ where $(g_1, h, g_2)$ is a Buchberger triple. Then the updated set of the old pairs and the new pairs are united into the set $B_{new}$, which is the output of the function.
+
+Finally, the last while loop in the function \textit{Update} removes from the set $G_{old}$ all polynomials $g$ whose leading monomial is a multiple of the leading monomial of $h$. We can eliminate such polynomials for two reasons. Firstly, LM$(h) \mid$ LM$(g)$ implies LM$(h) \mid$ lcm(LM$(g)$, LM$(f)$) for arbitrary polynomial $f$. We can see that $(g, h, f)$ is a Buchberger triple for any $f$ which sometime appears in the set $G$. Moreover, polynomial $g$ will not be missed at the end, because in the Gr\"obner basis $G$, polynomials with leading monomials which are multiples of leading monomial of other polynomial from $G$ are superfluous.
 
 \input{alg/Update.tex}
 
