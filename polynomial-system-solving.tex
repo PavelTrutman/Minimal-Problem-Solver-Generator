@@ -35,6 +35,7 @@ The first and easy, but very inefficient implementation of this algorithm is bas
 \end{algorithm}
 
 \subsection{Improved Buchberger Algorithm}
+\label{subsec:ImprovedBuchberger}
 The combinatorial complexity of the simple implementation of the Buchberger Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know, which pairs can be deleted without treatment, we use the first and the second Buchberger's criteria \cite{Becker93}. Moreover, we can even delete certain polynomials from the set $G$, knowing that every critical pair that will occur in is superfluous and that these polynomials themselves will be superfluous in the output set. We call this mechanism, that achives these deletions of critical pairs and polynomials, as the function \textit{Update}.  In the next few paragpraphs we will describe the implementation of the Improved Buchberger Algorithm and of the function \textit{Update} due to Gebauer and M\"oller \cite{Gebauer-Moller88}.
 
 The Improved Buchberger Algorithm has the same structure as the Simple Algorithm. The function \textit{Update} is used at the beginning of the Improved Buchberger Algorithm to initialize the set of critical pairs $B$ and the Gr\"obner basis $G$ from the input set $F$ of polynomials and at the point where a new non-zero polynomial $h_0 = \overline{h}^G$ of an S-polynomial $h$ has been found and the sets $B$ and $G$ are about to be updated.
@@ -99,7 +100,7 @@ This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ i
 \end{algorithm}
 
 \subsection{Function Update}
-In this algorithm is used standard implementation of Buchberger Criteria \textbf{CITE Gebauer and Moller [GM88]}.
+In this algorithm is used standard implementation of Buchberger's Criteria such as the Gebauer and M\"oller installation \cite{Gebauer-Moller88}. Details about this function you can find in the section \ref{subsec:ImprovedBuchberger} and the pseudocode as the algorithm \ref{alg:update}.
 
 \subsection{Function Reduction}
 Task of this function is simple, it performs polynomial division using methods of linear algebra.
