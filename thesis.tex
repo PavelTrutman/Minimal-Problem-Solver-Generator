@@ -6,10 +6,20 @@
 \usepackage{enumitem}
 \usepackage{textcomp}
 \usepackage{algorithm}
+%\usepackage{algorithmic}
 \usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{forloop}
+
+\newcounter{counter}
 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
+\algdef{S}[IF]{IfML}[1]{\algorithmicif\ #1}
+\newcommand{\StatexIndent}[1][1]{
+  \Statex\forloop{counter}{0}{\value{counter} < #1}{\hskip\algorithmicindent\hskip-0.25em}
+}
 
 \startThesisInfo
 \title{Minimal Problem Solver Generator}

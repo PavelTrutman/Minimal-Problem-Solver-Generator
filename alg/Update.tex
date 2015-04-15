@@ -1,0 +1,61 @@
+\begin{algorithm}[htp]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $G_{old}$ a finite set of polynomials
+      \Statex $B_{old}$ a finite set of pairs of polynomials
+      \Statex $h$ a polynomial such that $h \neq 0$
+    \Ensure
+      \Statex $G_{new}$ a finite set of polynomials
+      \Statex $B_{new}$ a finite set of pairs of polynomials
+      \Statex
+
+    \State $C \gets \left\{\left\{h, g\right\}\ |\ g\in G_{old}\right\}$
+    \State $D \gets \emptyset$
+    \While{$C\neq \emptyset$}
+      \State select $\{h,g_1\}$ from $C$
+      \State $C \gets C\backslash \{\{h, g_1\}\}$
+      \IfML{LM$(h)$ and LM$(g_1)$ are disjoint \textbf{or}}
+        \StatexIndent[3](lcm(LM$(h)$, LM$(g_2)$) $\nmid$ lcm(LM$(h)$, LM$(g_1)$) for all $\{h, g_2\}\in C$ \textbf{and}
+        \StatexIndent[3]lcm(LM$(h)$, LM$(g_2)$) $\nmid$ lcm(LM$(h)$, LM$(g_1)$) for all $\{h, g_2\} \in D$) \algorithmicthen
+        \State $D \gets D \cup \{\{h, g_1\}\}$
+      \EndIf
+    \EndWhile
+
+    \State $E \gets \emptyset$
+
+    \While{$D \neq \emptyset$}
+      \State select $\{h, g\}$ from $D$
+      \State $D \gets D\backslash \{\{h, g\}\}$
+      \If{LM$(h)$ and LM$(g)$ are not disjoint}
+        \State $E \gets E \cup \{\{h, g\}\}$
+      \EndIf
+    \EndWhile
+
+    \State $B_{new} \gets \emptyset$
+
+    \While{$B_{old} \neq \emptyset$}
+      \State select $\{g_1, g_2\}$ from $B_{old}$
+      \State $B_{old} \gets B_{old} \backslash \{\{g_1, g_2\}\}$
+      \IfML{LM$(h) \nmid$ lcm(LM$(g_1)$, LM$(g_2)$) \textbf{or}}
+        \StatexIndent[3]lcm(LM$(g_1)$, LM$(h)) = $ lcm(LM$(g_1)$, LM$(g_2)$) \textbf{or}
+        \StatexIndent[3]lcm(LM$(h)$, LM$(g_2)) = $ lcm(LM$(g_1)$, LM$(g_2)$) \algorithmicthen
+        \State $B_{new} \gets B_{new} \cup \{\{g_1, g_2\}\}$
+      \EndIf
+    \EndWhile
+
+    \State $B_{new} \gets B_{new} \cup E$
+    \State $G_{new} \gets \emptyset$
+    
+    \While{$G_{old} \neq \emptyset$}
+      \State select $g$ from $G_{old}$
+      \State $G_{old} \gets G_{old} \backslash \{g\}$
+      \If{LM$(h)$ $\nmid$ LM$(g)$}
+        \State $G_{new} \gets G_{new} \cup \{g\}$
+      \EndIf
+    \EndWhile
+
+    \State \Return $(G_{new}, B_{new})$
+
+  \end{algorithmic}
+  \caption{Update}
+\end{algorithm}
