@@ -31,24 +31,26 @@ The first and easy, but very inefficient implementation of this algorithm is bas
     \State \Return $G$
 
   \end{algorithmic}
-  \caption{Simple Buchberger Algorithm}
+  \caption{Simple Buchberger's Algorithm}
 \end{algorithm}
 
-\subsection{Improved Buchberger Algorithm}
+\subsection{Improved Buchberger's Algorithm}
 \label{subsec:ImprovedBuchberger}
-The combinatorial complexity of the simple implementation of the Buchberger Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know, which pairs can be deleted without treatment, we use the first and the second Buchberger's criteria \cite{Becker93}. Moreover, we can even delete certain polynomials from the set $G$, knowing that every critical pair that will occur in is superfluous and that these polynomials themselves will be superfluous in the output set. We call this mechanism, that achives these deletions of critical pairs and polynomials, as the function \textit{Update}.  In the next few paragpraphs we will describe the implementation of the Improved Buchberger Algorithm and of the function \textit{Update} due to Gebauer and M\"oller \cite{Gebauer-Moller88}.
+The combinatorial complexity of the simple implementation of the Buchberger's Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know, which pairs can be deleted without treatment, we use the first and the second Buchberger's criteria \cite{Becker93}. Moreover, we can even delete certain polynomials from the set $G$, knowing that every critical pair that will occur in is superfluous and that these polynomials themselves will be superfluous in the output set. We call this mechanism, that achives these deletions of critical pairs and polynomials, as the function \textit{Update}.  In the next few paragpraphs we will describe the implementation of the Improved Buchberger's Algorithm and of the function \textit{Update} according to Gebauer and M\"oller \cite{Gebauer-Moller88}.
 
-The Improved Buchberger Algorithm has the same structure as the Simple Algorithm. The function \textit{Update} is used at the beginning of the Improved Buchberger Algorithm to initialize the set of critical pairs $B$ and the Gr\"obner basis $G$ from the input set $F$ of polynomials and at the point where a new non-zero polynomial $h_0 = \overline{h}^G$ of an S-polynomial $h$ has been found and the sets $B$ and $G$ are about to be updated.
+The Improved Buchberger's Algorithm has the same structure as the Simple Algorithm. The function \textit{Update} is used at the beginning of the Improved Buchberger's Algorithm to initialize the set of critical pairs $B$ and the Gr\"obner basis $G$ from the input set $F$ of polynomials and at the point where a new non-zero polynomial $h_0 = \overline{h}^G$ of an S-polynomial $h$ has been found and the sets $B$ and $G$ are about to be updated.
 
 \input{alg/ImprovedBuchberger.tex}
 
-Now, let us look at the function \textit{Update} in more details. First, it makes all pairs of the new polynomial $h$ and all polynomials from the set $G_{old}$ and all such pairs puts into the set $C$. The first while loop on lines \ref{alg:update:w1b} -- \ref{alg:update:w1e} puts from the set $C$ into the set $D$ all pairs $\{h, g_1\}$ such that $(h, g_2, g_1)$ is not a Buchberger triple, where $\{h, g_2\}$ is an another pair from the set $C$ or the set $D$. From the second Buchberger's criterion we know that if a Buchberger triple $(h, g_2, g_1)$ shows up in a Buchberger Algorithm and the pairs $\{g_1, g_2\}$ and $\{h, g_2\}$ have been taken care of, then the pair $\{h, g_1\}$ need not to be treated. That means in our code that such a pair is not moved from the set $C$ to the set $D$, but it is only removed from the set $C$. This while loop keeps all pairs $\{h, g_1\}$ where LM$(h)$ and LM$(g_1)$ are disjoint. The reason is that if two or more pairs in $C$ have the same lcm of their leading monomials, then there is a choice which one should be deleted. So we keep one where the leading monomials are disjoint. Pairs with disjoint leading monomials are removed in the second while loop, so we eventually remove them all.
+Now, let us look at the function \textit{Update} in more details. First, it makes pairs of the new polynomial $h$ and all polynomials from the set $G_{old}$ and all such pairs puts into the set $C$. The first while loop on lines \ref{alg:update:w1b} -- \ref{alg:update:w1e} puts from the set $C$ into the set $D$ all pairs $\{h, g_1\}$ such that $(h, g_2, g_1)$ is not a Buchberger triple, where $\{h, g_2\}$ is an another pair from the set $C$ or the set $D$. From the second Buchberger's criterion we know that if a Buchberger triple $(h, g_2, g_1)$ shows up in a Buchberger's Algorithm and the pairs $\{g_1, g_2\}$ and $\{h, g_2\}$ have been taken care of, then the pair $\{h, g_1\}$ need not to be treated. That means in our code that such a pair is not moved from the set $C$ to the set $D$, but it is only removed from the set $C$. This while loop keeps all pairs $\{h, g_1\}$ where LM$(h)$ and LM$(g_1)$ are disjoint. The reason of this is that if two or more pairs in $C$ have the same lcm of their leading monomials, then there is a choice which one should be deleted. So we keep the one where the leading monomials are disjoint. Pairs with disjoint leading monomials are removed in the second while loop, so we eventually remove them all.
 
 As mentioned before the second while loop (lines \ref{alg:update:w2b} -- \ref{alg:update:w2e}) eliminates all pairs such their leading monomials are disjoint. All remaining pairs are stored in the set $E$. We can remove such pairs because of the first Buchberger's criterion.
 
 The third while loop on lines \ref{alg:update:w3b} -- \ref{alg:update:w3e} eliminates from the set $B_{old}$ of old pairs those pairs $\{g_1, g_2\}$ where $(g_1, h, g_2)$ is a Buchberger triple. Then the updated set of the old pairs and the new pairs are united into the set $B_{new}$, which is the output of the function.
 
-Finally, the last while loop in the function \textit{Update} removes from the set $G_{old}$ all polynomials $g$ whose leading monomial is a multiple of the leading monomial of $h$. We can eliminate such polynomials for two reasons. Firstly, LM$(h) \mid$ LM$(g)$ implies LM$(h) \mid$ lcm(LM$(g)$, LM$(f)$) for arbitrary polynomial $f$. We can see that $(g, h, f)$ is a Buchberger triple for any $f$ which sometime appears in the set $G$. Moreover, polynomial $g$ will not be missed at the end, because in the Gr\"obner basis $G$, polynomials with leading monomials which are multiples of leading monomial of other polynomial from $G$ are superfluous.
+Finally, the last while loop in the function \textit{Update} removes from the set $G_{old}$ all polynomials $g$ whose leading monomial is a multiple of the leading monomial of $h$. We can eliminate such polynomials for two reasons. Firstly, LM$(h) \mid$ LM$(g)$ implies LM$(h) \mid$ lcm(LM$(g)$, LM$(f)$) for arbitrary polynomial $f$. We can see that $(g, h, f)$ is a Buchberger triple for any $f$ which in future appears in the set $G$. Moreover, polynomial $g$ will not be missed at the end, because in the Gr\"obner basis $G$, polynomials with leading monomial which is multiple of leading monomial of another polynomial from $G$ are superfluous.
+
+In the end of the function the polynomial $h$ is added into the Gr\"obner basis $G_{new}$. The output of the function is the Gr\"obner basis $G_{new}$ and the set of critical pairs $B_{new}$.
 
 \input{alg/Update.tex}
 
@@ -56,11 +58,11 @@ Finally, the last while loop in the function \textit{Update} removes from the se
 The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by a simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation followed by Gaussian elimination implemented using sparse linear algebra methods. $F_4$ speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of a single matrix.
 
 \subsection{Improved Algorithm $F_4$}
-The main function of $F_4$ Algorithm consists of two parts. The goal of the first part is to initialize the whole algorithm. First, it generates required pairs and initializes Gr\"obner basis $G$. Then it takes each polynomial from the input set and calls function \textit{Update} on it, which updates the set $P$ of pairs and the set $G$ of basic polynomials.
+The main function of $F_4$ Algorithm consists of two parts. The goal of the first part is to initialize the whole algorithm. First, it generates required pairs and initializes the Gr\"obner basis $G$. Then it takes each polynomial from the input set and calls the function \textit{Update} on it, which updates the set $P$ of pairs and the set $G$ of basic polynomials.
 
-The second part of the algorithm generates new polynomials and includes them into the set $G$. In each iteration, it selects same pairs from $P$ using function \textit{Sel}. How to best select the pairs, is still an open question. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}. Then, it splits each pair into two tuples. The first tuple contains the first polynomial $f_1$ of the pair and monomial $t_1$ such that $\textrm{LM}(t_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. The second tuple is constructed in the same way from the second polynomial of the pair. All tuples from all selected pairs are put into the set $L$, i.e. duplicates are removed.
+The second part of the algorithm generates new polynomials and includes them into the set $G$. In each iteration, it selects same pairs from $P$ using the function \textit{Sel}. How to best select the pairs, is still an open question. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}. Then, it splits each pair into two tuples. The first tuple contains the first polynomial $f_1$ of the pair and the monomial $m_1$ such that $\textrm{LM}(m_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. The second tuple is constructed in the same way from the second polynomial of the pair. All tuples from all selected pairs are put into the set $L$, i.e. duplicates are removed.
 
-Next, it calls function \textit{Reduction} on the set $L$ and stores result in the set $\tilde{F}^+$. In the end it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls function \textit{Update} on each of them. This generates new pairs into the set $P$ and extends Gr\"obner basis $G$.
+Next, it calls the function \textit{Reduction} on the set $L$ and stores result in the set $\tilde{F}^+$. In the end it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls the function \textit{Update} on each of them. This generates new pairs into the set $P$ and extends the Gr\"obner basis $G$.
 
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
@@ -78,7 +80,7 @@ This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ i
     \State $d \gets 0$
 
     \While{$F \neq \emptyset$}
-      \State $f \gets first(F)$
+      \State select $f$ form $F$
       \State $F \gets F\backslash \{f\}$
       \State $(G, P) \gets Update(G, P, f)$
     \EndWhile
@@ -100,14 +102,14 @@ This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ i
 \end{algorithm}
 
 \subsection{Function Update}
-In this algorithm is used standard implementation of Buchberger's Criteria such as the Gebauer and M\"oller installation \cite{Gebauer-Moller88}. Details about this function you can find in the section \ref{subsec:ImprovedBuchberger} and the pseudocode as the algorithm \ref{alg:update}.
+In this algorithm is used standard implementation of the Buchberger's Criteria such as the Gebauer and M\"oller installation \cite{Gebauer-Moller88}. Details about this function you can find in the section \ref{subsec:ImprovedBuchberger} and the pseudocode of this function as the algorithm \ref{alg:update}.
 
 \subsection{Function Reduction}
 Task of this function is simple, it performs polynomial division using methods of linear algebra.
 
 Input of this function is a set $L$ containing tuples of monomial and polynomial, which were made in the main function of the $F_4$ Algorithm.
 
-First, this function calls function \textit{Symbolic Preprocessing} on the set $L$. This returns a set $F$ of polynomials to be reduced. To use linear algebra methods to perform polynomial division the polynomials have to be represented by a matrix. Each column of the matrix corresponds to a monomial and the columns have to be ordered with respect to the ordering used so that the most right column corresponds to ``1''. Each row of the matrix corresponds to a polynomial from the set $F$. Construction of the matrix is simple. On the $(i, j)$ posistion in the matrix, we put the coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
+First, this function calls the function \textit{Symbolic Preprocessing} on the set $L$. This returns a set $F$ of polynomials to be reduced. To use linear algebra methods to perform polynomial division the polynomials have to be represented by a matrix. Each column of the matrix corresponds to a monomial and the columns have to be ordered with respect to the ordering used so that the most right column corresponds to ``1''. Each row of the matrix corresponds to a polynomial from the set $F$. Construction of the matrix is simple. On the $(i, j)$ posistion in the matrix, we put the coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
 
 If we have constructed matrix like this we can reduce it to a row echelon form using, for example, Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computation time and memory. After elimination, we construct resulting polynomials by multiplying the reduced matrix by a vector of monomials from the \textbf{?????}.
 
@@ -125,7 +127,7 @@ In the end, the function returns the set of reduced polynomials that have leadin
       \Statex
 
     \State $F \gets Symbolic\ Preprocessing(L, G, \mathcal{F})$
-    \State $\tilde{F} \gets$ Reduction to Row Echelon Form of $F$
+    \State $\tilde{F} \gets$ Reduction to a Row Echelon Form of $F$
     \State $\tilde{F^+} \gets \left\{f \in \tilde{F}\ |\ \textrm{LM}(f) \notin \textrm{LM}(F)\right\}$
 
     \State \Return $(\tilde{F}^+, F)$
@@ -135,9 +137,9 @@ In the end, the function returns the set of reduced polynomials that have leadin
 \end{algorithm}
 
 \subsection{Function Symbolic Preprocessing}
-Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples containing monomial and polynomial. These tuples were made from selected pairs. Then, these tuples are simplified by function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
+Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples each containing monomial and polynomial. These tuples were made from the selected pairs. Then, these tuples are simplified by the function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
 
-Next, the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from Gr\"obner basis $G$ such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is a some monomial. All such polynomials $f$ and monomials $m^\prime$ are after simplification multiplied and put into the set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that all added polynomials will be reduced for $G$ after polynomial division (using linear algebra).
+Next, the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from the Gr\"obner basis $G$ such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is some monomial. All such polynomials $f$ and monomials $m^\prime$ are after simplification multiplied and put into the set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that all added polynomials will be reduced for $G$ after polynomial division (using linear algebra).
 
 \begin{algorithm}[ht]
   \begin{algorithmic}[1]
@@ -167,9 +169,9 @@ Next, the function goes through all monomials in the set $F$ and for each monomi
 \end{algorithm}
 
 \subsection{Function Simplify}
-Function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
+The function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
 
-The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\prime$ such $\textrm{LM}(m^\prime\times f^\prime) = \textrm{LM}(m\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select polynomial $f^\prime$ such that total degree of $m^\prime$ is minimal.
+The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\prime$ such that $\textrm{LM}(m^\prime\times f^\prime) = \textrm{LM}(m\times f)$. The polynomial $f^\prime$ is selected from all polynomials that has been reduced in previous iterations (sets $\tilde{F}^+$). We select polynomial $f^\prime$ such that total degree of $m^\prime$ is minimal.
 
 This is done to insert into the set $F$ (set of polynomials ready to reduce) polynomials such that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
 
