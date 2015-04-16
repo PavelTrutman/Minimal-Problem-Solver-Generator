@@ -1,0 +1,35 @@
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $F$ a finite set of polynomials
+      \Statex $Sel$ a function $List(Pairs) \to List(Pairs)$ such that $Sel(l) \neq \emptyset$ if $l\neq\emptyset$
+    \Ensure
+      \Statex $G$ a finite set of polynomials
+      \Statex
+
+    \State $G \gets \emptyset$
+    \State $P \gets \emptyset$
+    \State $d \gets 0$
+
+    \While{$F \neq \emptyset$}
+      \State select $f$ form $F$
+      \State $F \gets F\backslash \{f\}$
+      \State $(G, P) \gets Update(G, P, f)$
+    \EndWhile
+    
+    \While{$P\neq\emptyset$}
+      \State $d \gets d + 1$
+      \State $P_d \gets Sel(P)$
+      \State $P \gets P\backslash P_d$
+      \State $L_d \gets Left(P_d) \cup Right(P_d)$
+      \State $(\tilde{F}^+_d, F_d) \gets Reduction(L_d, G, (F_i)_{i=1,\ldots,(d-1)})$
+      \For{$h\in\tilde{F}^+_d$}
+        \State $(G, P) \gets Update(G, P, h)$
+      \EndFor
+    \EndWhile
+    \State \Return $G$
+
+  \end{algorithmic}
+  \caption{Improved Algorithm $F_4$}
+\end{algorithm}
+

@@ -1,0 +1,27 @@
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $L$ a finite set of tuples of monomial and polynomial
+      \Statex $G$ a finite set of polynomials
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $F$ a finite set of polynomials
+      \Statex
+
+    \State $F \gets \left\{multiply(Simplify(m, f, \mathcal{F}))\ |\ (m, f)\in L\right\}$
+    \State $Done \gets \textrm{LM}(F)$
+    \While{$\textrm{M}(F) \neq Done$}
+      \State $m$ an element of $\textrm{M}(F)\backslash Done$
+      \State $Done \gets Done \cup \{m\}$
+      \If{$m$ is top reducible modulo $G$}
+        \State $m = m^\prime \times \textrm{LM}(f)$ for some $f \in G$ and some monomial $m^\prime$
+        \State $F \gets F \cup \left\{multiply(Simplify(m^\prime, f, \mathcal{F}))\right\}$
+      \EndIf
+    \EndWhile
+
+    \State \Return $F$
+
+  \end{algorithmic}
+  \caption{Symbolic Preprocessing}
+\end{algorithm}
+

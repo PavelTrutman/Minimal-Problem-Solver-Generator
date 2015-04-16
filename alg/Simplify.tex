@@ -1,0 +1,28 @@
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $m$ a monomial
+      \Statex $f$ a polynomial
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $(m^\prime, f^\prime)$ a non evaluated product of a monomial and a polynomial
+      \Statex
+
+    \For{$u \in$ list of all divisors of $m$}
+      \If{$\exists j\ (1 \leq j \le d)$ such that $(u\times f) \in F_j$}
+        \State $\tilde{F}_j$ is the Row Echelon Form of $F_j$
+        \State there exists a (unique) $p\in \tilde{F}^+_j$ such that $\textrm{LM}(p) = \textrm{LM}(u\times f)$
+        \If{$u\neq m$}
+          \State \Return $Simplify(\frac{m}{u}, p, \mathcal{F})$
+        \Else
+          \State \Return $(1, p)$
+        \EndIf
+      \EndIf
+    \EndFor
+
+    \State \Return $(m, f)$
+
+  \end{algorithmic}
+  \caption{Simplify}
+\end{algorithm}
+

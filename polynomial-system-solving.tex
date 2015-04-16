@@ -7,32 +7,7 @@ Buchberger's Algorithm \cite{Buchberger65}, which was invented by Bruno Buchberg
 \subsection{First implementation}
 The first and easy, but very inefficient implementation of this algorithm is based on the observation that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all non-zero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$ until there is no non-zero remainder. The main disadvatage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary.
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $F$ a finite set of polynomials
-    \Ensure
-      \Statex $G$ a finite set of polynomials
-      \Statex
-
-    \State $G \gets F$
-    \State $B \gets \left\{\left\{g_1, g_2\right\}\ |\ g_1, g_2 \in G,\ g_1 \neq g_2\right\}$
-    \While{$B \neq \emptyset$}
-      \State select $\left\{g_1, g_2\right\}$ from $B$
-      \State $B \gets B\backslash\left\{\left\{g_1, g_2\right\}\right\}$
-      \State $h \gets S(g_1, g_2)$
-      \State $h_0 \gets \overline{h}^G$
-      \If{$h_0 \neq 0$}
-        \State $B \gets B \cup \left\{\left\{g, h_0\right\}\ |\ g\in G\right\}$
-        \State $G \gets G \cup \left\{h_0\right\}$
-      \EndIf
-    \EndWhile
-
-    \State \Return $G$
-
-  \end{algorithmic}
-  \caption{Simple Buchberger's Algorithm}
-\end{algorithm}
+\input{alg/Buchberger.tex}
 
 \subsection{Improved Buchberger's Algorithm}
 \label{subsec:ImprovedBuchberger}
@@ -66,40 +41,7 @@ Next, it calls the function \textit{Reduction} on the set $L$ and stores result 
 
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $F$ a finite set of polynomials
-      \Statex $Sel$ a function $List(Pairs) \to List(Pairs)$ such that $Sel(l) \neq \emptyset$ if $l\neq\emptyset$
-    \Ensure
-      \Statex $G$ a finite set of polynomials
-      \Statex
-
-    \State $G \gets \emptyset$
-    \State $P \gets \emptyset$
-    \State $d \gets 0$
-
-    \While{$F \neq \emptyset$}
-      \State select $f$ form $F$
-      \State $F \gets F\backslash \{f\}$
-      \State $(G, P) \gets Update(G, P, f)$
-    \EndWhile
-    
-    \While{$P\neq\emptyset$}
-      \State $d \gets d + 1$
-      \State $P_d \gets Sel(P)$
-      \State $P \gets P\backslash P_d$
-      \State $L_d \gets Left(P_d) \cup Right(P_d)$
-      \State $(\tilde{F}^+_d, F_d) \gets Reduction(L_d, G, (F_i)_{i=1,\ldots,(d-1)})$
-      \For{$h\in\tilde{F}^+_d$}
-        \State $(G, P) \gets Update(G, P, h)$
-      \EndFor
-    \EndWhile
-    \State \Return $G$
-
-  \end{algorithmic}
-  \caption{Improved Algorithm $F_4$}
-\end{algorithm}
+\input{alg/F4.tex}
 
 \subsection{Function Update}
 In this algorithm is used standard implementation of the Buchberger's Criteria such as the Gebauer and M\"oller installation \cite{Gebauer-Moller88}. Details about this function you can find in the section \ref{subsec:ImprovedBuchberger} and the pseudocode of this function as the algorithm \ref{alg:update}.
@@ -115,58 +57,14 @@ If we have constructed matrix like this we can reduce it to a row echelon form u
 
 In the end, the function returns the set of reduced polynomials that have leading monomials which were not amongs polynomials before reduction.
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $L$ a finite set of tuples of monomial and polynomial
-      \Statex $G$ a finite set of polynomials
-      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
-    \Ensure
-      \Statex $\tilde{F}^+$ a finite set of polynomials
-      \Statex $F$ a finite set of polynomials
-      \Statex
-
-    \State $F \gets Symbolic\ Preprocessing(L, G, \mathcal{F})$
-    \State $\tilde{F} \gets$ Reduction to a Row Echelon Form of $F$
-    \State $\tilde{F^+} \gets \left\{f \in \tilde{F}\ |\ \textrm{LM}(f) \notin \textrm{LM}(F)\right\}$
-
-    \State \Return $(\tilde{F}^+, F)$
-
-  \end{algorithmic}
-  \caption{Reduction}
-\end{algorithm}
+\input{alg/Reduction.tex}
 
 \subsection{Function Symbolic Preprocessing}
 Function \textit{Symbolic Preprocessing} starts with a set $L$ of tuples each containing monomial and polynomial. These tuples were made from the selected pairs. Then, these tuples are simplified by the function \textit{Simplify} and after multiplying polynomials with corresponding monomials the results are put into the set $F$.
 
 Next, the function goes through all monomials in the set $F$ and for each monomial $m$ looks for some polynomial $f$ from the Gr\"obner basis $G$ such $m = m^\prime \times \textrm{LM}(f)$ where $m^\prime$ is some monomial. All such polynomials $f$ and monomials $m^\prime$ are after simplification multiplied and put into the set $F$. The goal of this search is to have for each monomial in $F$ some polynomial in $F$ with the same leading monomial. This will ensure that all added polynomials will be reduced for $G$ after polynomial division (using linear algebra).
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $L$ a finite set of tuples of monomial and polynomial
-      \Statex $G$ a finite set of polynomials
-      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
-    \Ensure
-      \Statex $F$ a finite set of polynomials
-      \Statex
-
-    \State $F \gets \left\{multiply(Simplify(m, f, \mathcal{F}))\ |\ (m, f)\in L\right\}$
-    \State $Done \gets \textrm{LM}(F)$
-    \While{$\textrm{M}(F) \neq Done$}
-      \State $m$ an element of $\textrm{M}(F)\backslash Done$
-      \State $Done \gets Done \cup \{m\}$
-      \If{$m$ is top reducible modulo $G$}
-        \State $m = m^\prime \times \textrm{LM}(f)$ for some $f \in G$ and some monomial $m^\prime$
-        \State $F \gets F \cup \left\{multiply(Simplify(m^\prime, f, \mathcal{F}))\right\}$
-      \EndIf
-    \EndWhile
-
-    \State \Return $F$
-
-  \end{algorithmic}
-  \caption{Symbolic Preprocessing}
-\end{algorithm}
+\input{alg/SymbolicPreprocessing.tex}
 
 \subsection{Function Simplify}
 The function \textit{Simplify} simplifies a polynomial which is a product of the multiplication of a given monomial $m$ and a polynomial $f$.
@@ -175,33 +73,7 @@ The function recursively looks for a monomial $m^\prime$ and a polynomial $f^\pr
 
 This is done to insert into the set $F$ (set of polynomials ready to reduce) polynomials such that are mostly reduced and have small number of monomials. This of course speeds up following reduction.
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $m$ a monomial
-      \Statex $f$ a polynomial
-      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
-    \Ensure
-      \Statex $(m^\prime, f^\prime)$ a non evaluated product of a monomial and a polynomial
-      \Statex
-
-    \For{$u \in$ list of all divisors of $m$}
-      \If{$\exists j\ (1 \leq j \le d)$ such that $(u\times f) \in F_j$}
-        \State $\tilde{F}_j$ is the Row Echelon Form of $F_j$
-        \State there exists a (unique) $p\in \tilde{F}^+_j$ such that $\textrm{LM}(p) = \textrm{LM}(u\times f)$
-        \If{$u\neq m$}
-          \State \Return $Simplify(\frac{m}{u}, p, \mathcal{F})$
-        \Else
-          \State \Return $(1, p)$
-        \EndIf
-      \EndIf
-    \EndFor
-
-    \State \Return $(m, f)$
-
-  \end{algorithmic}
-  \caption{Simplify}
-\end{algorithm}
+\input{alg/Simplify.tex}
 
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
@@ -213,19 +85,6 @@ For the speed of the $F_4$ Algorithm is very important how to select in each ite
   \item The best function that Faug\`ere has tested is to select all critical pairs with a minimal total degree. Faug\`ere calls this strategy the \textit{normal strategy for} $F_4$.
 \end{itemize}
 
-\begin{algorithm}[ht]
-  \begin{algorithmic}[1]
-    \Require
-      \Statex $P$ a list of critical pairs
-    \Ensure
-      \Statex $P_d$ a list of critical pairs
-      \Statex
-
-    \State $d \gets min\left\{\textrm{deg}(\textrm{lcm}(p))\ |\ p\in P\right\}$
-    \State $P_d \gets \left\{p\in P\ |\ \textrm{deg}(\textrm{lcm}(p)) = d\right\}$
-    \State \Return $P_d$
-  \end{algorithmic}
-  \caption{Sel -- The normal strategy for $F_4$}
-\end{algorithm}
+\input{alg/Sel.tex}
 
 \section{$F_5$ Algorithm}

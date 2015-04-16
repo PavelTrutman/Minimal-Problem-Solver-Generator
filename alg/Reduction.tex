@@ -1,0 +1,21 @@
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $L$ a finite set of tuples of monomial and polynomial
+      \Statex $G$ a finite set of polynomials
+      \Statex $\mathcal{F} = (F_i)_{i=1,\ldots,(d-1)}$, where $F_i$ is finite set of polynomials
+    \Ensure
+      \Statex $\tilde{F}^+$ a finite set of polynomials
+      \Statex $F$ a finite set of polynomials
+      \Statex
+
+    \State $F \gets Symbolic\ Preprocessing(L, G, \mathcal{F})$
+    \State $\tilde{F} \gets$ Reduction to a Row Echelon Form of $F$
+    \State $\tilde{F^+} \gets \left\{f \in \tilde{F}\ |\ \textrm{LM}(f) \notin \textrm{LM}(F)\right\}$
+
+    \State \Return $(\tilde{F}^+, F)$
+
+  \end{algorithmic}
+  \caption{Reduction}
+\end{algorithm}
+
