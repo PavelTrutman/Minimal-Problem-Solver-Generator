@@ -9,6 +9,7 @@ fast: *.tex alg/*.tex
 
 thesis.pdf: *.tex *.bib alg/*.tex
 	pdflatex thesis.tex
+	makeglossaries thesis
 	bibtex thesis
 	pdflatex thesis.tex
 	pdflatex thesis.tex

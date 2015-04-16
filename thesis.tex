@@ -12,6 +12,16 @@
 \usepackage{amssymb}
 \usepackage{forloop}
 
+
+\usepackage[acronym,nonumberlist,style=long,sort=def]{glossaries}
+\setlength{\glsdescwidth}{0.6\linewidth}
+\setlength{\glspagelistwidth}{0.4\linewidth}
+\renewcommand*{\glsgroupskip}{}
+\newcommand{\Acronym}[2]{\newacronym{#1}{#1}{#2}}
+\input{acronyms}
+\makeglossaries
+
+
 \newcounter{counter}
 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -55,7 +65,8 @@
 \cleardoublepage\def\thepage{\arabic{page}}\setcounter{page}{1}
 \tableofcontents\pagestyle{headings}
 
-\input{abbreviations}
+\glsaddall
+\printglossary[type=acronym,title=List of Abbreviations]
 
 \input{introduction.tex}
 
