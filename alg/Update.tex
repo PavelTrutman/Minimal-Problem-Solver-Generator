@@ -46,13 +46,13 @@
     \State $B_{new} \gets B_{new} \cup E$
     \State $G_{new} \gets \emptyset$
     
-    \While{$G_{old} \neq \emptyset$}
+    \While{$G_{old} \neq \emptyset$} \label{alg:update:w4b}
       \State select $g$ from $G_{old}$
       \State $G_{old} \gets G_{old} \backslash \{g\}$
       \If{LM$(h)$ $\nmid$ LM$(g)$}
         \State $G_{new} \gets G_{new} \cup \{g\}$
       \EndIf
-    \EndWhile
+      \EndWhile \label{alg:update:w4e}
 
     \State $G_{new} \gets G_{new} \cup \{h\}$
 
