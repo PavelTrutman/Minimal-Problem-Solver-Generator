@@ -7,13 +7,13 @@ Buchberger Algorithm \cite{Buchberger65}, which was invented by Bruno Buchberger
 \subsection{First implementation}
 The first and easy, but very inefficient implementation of the Buchberger Algorithm, Algorithm \ref{alg:simpleBuchberger}, is based on the observation that we can extend a set $F$ of polynomials to a Gr\"obner basis only by adding all non-zero remainders $\overline{S(f_i, f_j)}^F$ of all pairs from $F$ into $F$ until there is no non-zero remainder generated.
 
-The main disadvatage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary. This implementation of the algorithm is also very inefficient because many of the S-polynomials that are constructed from the critical pairs are reduced to zero so after spending effort on computing them, there is nothing to add to the Gr\"obner basis $G$. How to decide which pairs need not be generated is described next.
+The main disadvantage of this simple algorithm is that so constructed Gr\"obner basis are often bigger than necessary. This implementation of the algorithm is also very inefficient because many of the S-polynomials that are constructed from the critical pairs are reduced to zero so after spending effort on computing them, there is nothing to add to the Gr\"obner basis $G$. How to decide which pairs need not be generated is described next.
 
 \input{alg/Buchberger.tex}
 
 \subsection{Improved Buchberger Algorithm}
 \label{subsec:ImprovedBuchberger}
-The combinatorial complexity of the simple implementation of the Buchberger Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know which pairs can be deleted without treatment, we use the first and the second Buchberger's criterion \cite{Becker93}. Sometimes, we can even delete certain polynomials from the set $G$ completely, knowing that every critical pair they will generate will reduce to zero and hence these polynomials themselves will be superfluous in the output set. In the next few paragpraphs we will describe the implementation of the Improved Buchberger Algorithm and of the function \textit{Update}, which deletes superfluous polynomials from $G$, according to Gebauer and M\"oller \cite{Gebauer-Moller88}.
+The combinatorial complexity of the simple implementation of the Buchberger Algorithm can be reduced by testing out certain S-polynomials which need not be considered. To know which pairs can be deleted without treatment, we use the first and the second Buchberger's criterion \cite{Becker93}. Sometimes, we can even delete certain polynomials from the set $G$ completely, knowing that every critical pair they will generate will reduce to zero and hence these polynomials themselves will be superfluous in the output set. In the next few paragraphs we will describe the implementation of the Improved Buchberger Algorithm and of the function \textit{Update}, which deletes superfluous polynomials from $G$, according to Gebauer and M\"oller \cite{Gebauer-Moller88}.
 
 The Improved Buchberger Algorithm, Algorithm \ref{alg:improvedBuchberger}, has the same structure as the Simple Algorithm. The function \textit{Update} is used at the beginning of the Improved Buchberger Algorithm to initialize the set $B$ of critical pairs and the Gr\"obner basis $G$ from the input set $F$ of polynomials and at every moment when a new non-zero polynomial $h_0 = \overline{h}^G$ of an S-polynomial $h$ has been found and the sets $B$ and $G$ are about to be updated.
 
@@ -41,7 +41,7 @@ First, it generates the set $P$ of critical pairs and initializes the Gr\"obner 
 
 The second part of the algorithm generates new polynomials and adds them into the set $G$. In each iteration, it selects some pairs from $P$ using the function \textit{Sel}. Many selection strategies are possible and is still an open question how to best select the pairs. Some selection strategies are described in the section \ref{subsec:F4:sel} on page \pageref{subsec:F4:sel}. Then, it splits each selected pair $\{f_1, f_2\}$ into two tuples. The first tuple contains the first polynomial $f_1$ of the pair and the monomial $m_1$ such that $\textrm{LM}(m_1 \times f_1) = \textrm{lcm}(\textrm{LM}(f_1),\textrm{LM}(f_2))$. The second tuple is constructed in the same way from the second polynomial $f_2$ of the pair. All tuples from all selected pairs are put into the set $L$, i.e. duplicates are removed.
 
-Next, function \textit{Reduction} is called on the set $L$. It stores result in the set $\tilde{F}^+$. In the end of the algorithm it iterates throught all new polynomials in the set $\tilde{F}^+$ and calls the function \textit{Update} on each of them. This generates new pairs into the set $P$ of critical pairs and extends the Gr\"obner basis $G$.
+Next, function \textit{Reduction} is called on the set $L$. It stores result in the set $\tilde{F}^+$. In the end of the algorithm it iterates through all new polynomials in the set $\tilde{F}^+$ and calls the function \textit{Update} on each of them. This generates new pairs into the set $P$ of critical pairs and extends the Gr\"obner basis $G$.
 
 This algorithm terminates when the set $P$ of pairs is empty. Then the set $G$ is a Gr\"obner basis and it is the output of the algorithm.
 
@@ -55,7 +55,7 @@ Function \textit{Reduction} performs polynomial division using methods of linear
 
 Input of the function \textit{Reduction} is a set $L$ containing tuples of monomial and polynomial. These tuples were constructed in the main function of the $F_4$ Algorithm from all selected pairs.
 
-First, the function \textit{Reduction} calls the function \textit{Symbolic Preprocessing} on the set $L$. This returns a set $F$ of polynomials to be reduced. To use linear algebra methods to perform polynomial division, the polynomials have to be represented by a matrix. Each column of the matrix corresponds to a monomial. Columns have to be ordered with respect to the monomial ordering used so that the most right column corresponds to ``1''. Each row of the matrix corresponds to a polynomial from the set $F$. The matrix is constructed as follows. On the $(i, j)$ posistion in the matrix, we put the coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
+First, the function \textit{Reduction} calls the function \textit{Symbolic Preprocessing} on the set $L$. This returns a set $F$ of polynomials to be reduced. To use linear algebra methods to perform polynomial division, the polynomials have to be represented by a matrix. Each column of the matrix corresponds to a monomial. Columns have to be ordered with respect to the monomial ordering used so that the most right column corresponds to ``1''. Each row of the matrix corresponds to a polynomial from the set $F$. The matrix is constructed as follows. On the $(i, j)$ position in the matrix, we put the coefficient of the term corresponding to $j$-th monomial from the $i$-th polynomial from the set $F$.
 
 We next reduce the matrix to a row echelon form using, for example, Gauss-Jordan elimination. Note that this matrix is typically sparse so we can use sparse linear algebra methods to save computation time and memory. After elimination, we construct resulting polynomials by multiplying the reduced matrix by a vector of monomials from the right.
 
@@ -81,10 +81,10 @@ This is done in the function \textit{Symbolic Preprocessing} to insert polynomia
 
 \subsection{Selection strategy}
 \label{subsec:F4:sel}
-For the speed of the $F_4$ Algorithm, it is very important how the critical pairs from the list of all critical pairs $P$ are selected in each iteration. This of course depends on the implemetation of the function \textit{Sel}. There are more possible selection strategies:
+For the speed of the $F_4$ Algorithm, it is very important how the critical pairs from the list of all critical pairs $P$ are selected in each iteration. This of course depends on the implementation of the function \textit{Sel}. There are more possible selection strategies:
 
 \begin{itemize}
-  \item The easiest implementation is to select all pairs from $P$. In this case we reduce all criticals pairs at the same time.
+  \item The easiest implementation is to select all pairs from $P$. In this case we reduce all critical pairs at the same time.
   \item If the function \textit{Sel} selects only one critical pair then the $F_4$ Algorithm is the Buchberger's Algorithm. In this case the \textit{Sel} function corresponds to the selection strategy in the Buchberger's Algorithm.
   \item The best function that Faug\`ere has tested is to select all critical pairs with a minimal total degree. Faug\`ere calls this strategy the \textit{normal strategy for} $F_4$.
 \end{itemize}
