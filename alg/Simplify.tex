@@ -11,7 +11,7 @@
     \For{$u \in$ list of all divisors of $m$}
       \If{$\exists j\ (1 \leq j \le d)$ such that $(u\times f) \in F_j$}
         \State $\tilde{F}_j$ is the Row Echelon Form of $F_j$
-        \State there exists a (unique) $p\in \tilde{F}^+_j$ such that $\textrm{LM}(p) = \textrm{LM}(u\times f)$
+        \State there exists a (unique) $p\in \tilde{F}_j$ such that $\textrm{LM}(p) = \textrm{LM}(u\times f)$
         \If{$u\neq m$}
           \State \Return $Simplify(\frac{m}{u}, p, \mathcal{F})$
         \Else
@@ -24,5 +24,6 @@
 
   \end{algorithmic}
   \caption{Simplify}
+  \label{alg:simplify}
 \end{algorithm}
 
