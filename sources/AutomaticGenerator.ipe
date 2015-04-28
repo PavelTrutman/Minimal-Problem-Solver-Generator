@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70005" creator="Ipe 7.1.4">
-<info created="D:20150428090212" modified="D:20150428121344"/>
+<info created="D:20150428090212" modified="D:20150428175601"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -272,24 +272,24 @@ h
 432 624 l
 h
 </path>
-<text matrix="1 0 0 1 116 0" transformations="translations" pos="224 724" stroke="black" type="minipage" width="80" height="24.831" depth="19.89" valign="top" style="center">Test if all necessary polynomials have been generated</text>
-<text matrix="1 0 0 1 4 4" transformations="translations" pos="212 720" stroke="black" type="minipage" width="100" height="12.891" depth="7.92" valign="top" style="center">Generate polynomials up to degree $d$</text>
-<text matrix="1 0 0 1 -24 8" transformations="translations" pos="252 660" stroke="black" type="minipage" width="80" height="6.926" depth="1.93" valign="top" style="center">Increase degree $d$</text>
-<path matrix="1 0 0 1 -4 0" stroke="black" pen="heavier">
+<text matrix="1 0 0 1 116 -12" transformations="translations" pos="224 724" stroke="black" type="minipage" width="80" height="24.831" depth="19.89" valign="top" style="center">Test if all necessary polynomials have been generated</text>
+<text matrix="1 0 0 1 4 -8" transformations="translations" pos="212 720" stroke="black" type="minipage" width="100" height="12.891" depth="7.92" valign="top" style="center">Generate polynomials up to degree $d$</text>
+<text matrix="1 0 0 1 -24 -4" transformations="translations" pos="252 660" stroke="black" type="minipage" width="80" height="6.926" depth="1.93" valign="top" style="center">Increase degree $d$</text>
+<path matrix="1 0 0 1 -4 -12" stroke="black" pen="heavier">
 216 728 m
 216 700 l
 324 700 l
 324 728 l
 h
 </path>
-<path stroke="black" pen="heavier">
+<path matrix="1 0 0 1 0 -12" stroke="black" pen="heavier">
 336 728 m
 336 676 l
 424 676 l
 424 728 l
 h
 </path>
-<path matrix="1 0 0 1 -4 0" stroke="black" pen="heavier">
+<path matrix="1 0 0 1 -4 -12" stroke="black" pen="heavier">
 228 672 m
 228 656 l
 316 656 l
@@ -325,22 +325,22 @@ h
 92 676 m
 92 656 l
 </path>
-<path matrix="1.11111 0 0 1 -23.1111 0" stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1.11111 0 0 0.842105 -23.1111 100.421" stroke="black" pen="heavier" arrow="pointed/normal">
 172 636 m
 192 636 l
 192 712 l
 208 712 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 0 -12" stroke="black" pen="heavier" arrow="pointed/normal">
 320 712 m
 332 712 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 0 -12" stroke="black" pen="heavier" arrow="pointed/normal">
 380 676 m
 380 664 l
 316 664 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 0 -12" stroke="black" pen="heavier" arrow="pointed/normal">
 268 672 m
 268 696 l
 </path>
@@ -352,13 +352,13 @@ h
 504 676 m
 504 656 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1.5 0 -376" stroke="black" pen="heavier" arrow="pointed/normal">
 380 728 m
 380 752 l
 440 752 l
 </path>
 <text matrix="1 0 0 1 -4 -4" transformations="translations" pos="388 740" stroke="black" type="label" width="14.999" height="6.808" depth="0" valign="baseline">Yes</text>
-<text matrix="1 0 0 1 -4 0" transformations="translations" pos="388 664" stroke="black" type="label" width="12.453" height="6.808" depth="0" valign="baseline">No</text>
+<text matrix="1 0 0 1 -4 -12" transformations="translations" pos="388 664" stroke="black" type="label" width="12.453" height="6.808" depth="0" valign="baseline">No</text>
 <text matrix="1 0 0 1 -8 12" transformations="translations" pos="476 624" stroke="black" type="minipage" width="76" height="5.958" depth="0.96" valign="top" style="center">Online solver
 </text>
 <path matrix="1 0 0 1 4 0" stroke="black" dash="dashed" pen="heavier">
