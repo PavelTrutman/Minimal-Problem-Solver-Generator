@@ -34,6 +34,15 @@ The last option is to compute the basis $B$ in advance and set it into the defin
 
 In the end we have check the number of solutions of the given polynomial system. If there is a finite number of solutions we can continue with the computation.
 
+\subsection{Polynomial generator}
+To be able to build the action matrix we have to generate enough polynomials such that after their reduction there will be polynomials with required leading monomials. The monomial basis $B$ tells us which leading monomials are required for the contruction of the action matrix.
+
+In this part of the automatic generator we represent polynomials as row vectors so systems of polynomials can be represented by matrices. This representation enables us to easily multiplicate polynomials with monomials only by shifting the coefficients in the vectors or to reduce the whole polynomial systems by performing the Gauss-Jordan eliminations on the corresponding matrices.
+
+Let $f_1, \dots, f_n$ are the polynomials from the input. Let $maxdeg$ is a maximal total degree of all polynomials $f_i$. At the beginning we put into the matrix $M$ all polynomials $\left\{m\times f_i\ |\ i = 1,\dots n;\ deg(m\times f_i) = deg(f_i),\dots, maxdeg\right\}$, where $m$ is a monomial. Now we perform the Gauss-Jordan elimination on the matrix $M$ and the result save as matrix $\tilde{M}$. Then we check if there exists a variable for which all required monomials are present as leading monomials of polynomials from $\tilde{M}$. If we find such a variable we can continue with the construction of the action matrix for the found variable. If not we have to add more polynomials to the matrix $M$. We increment $maxdeg$ by one and add all polynomials $\left\{m\times f_i\ |\ i = 1,\dots n;\ deg(m\times f_i) = maxdeg\right\}$ to the matrix $M$. Then we continue with the elimination and with the checking the action matrix requirements as written above. We repeat these steps until all required polynomials are generated so the action matrix can be built.
+
+In this whole process we need to keep track how the matrix $M$ was built. Recall that each coefficient of the polynomials $f_i$ has unique identifier assigned in the equations parser. Because the whole matrix $M$ contains only the polynomials $f_i$ or their multiples with monomials therefore in the matrix $M$ appear only the coefficients from the polynomials $f_i$. We just have to keep the positions of the coefficients. This is done by matrix $M_c$. The matrix $M_c$ is built in same time as the matrix $M$ by this way: if we put a coefficient into the matrix $M$ we also put the corresponding indentifier to the matrix $M_c$ at the same possition. The matrix $M_c$ enables us to recover the process of polynomials generation in the code generator module.
+
 \section{Reimplementation}
 
 \section{Multiple eliminations solver}
