@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70005" creator="Ipe 7.1.4">
-<info created="D:20150428090212" modified="D:20150428175601"/>
+<info created="D:20150428090212" modified="D:20150430083304"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -247,10 +247,10 @@ Instantiate known parameters
 <text matrix="1 0 0 1 -78.1662 36.9098" transformations="translations" pos="98.7204 611.668" stroke="black" type="minipage" width="142.446" height="12.891" depth="7.92" valign="top" style="center">Determine number of solutions\\
 Compute the basis $B$</text>
 <text matrix="1 0 0 1 107.498 162.715" transformations="translations" pos="91.3615 589.592" stroke="black" type="minipage" width="174.473" height="6.926" depth="1.93" valign="top" style="center">Generate necessary polynomials</text>
-<text matrix="1 0 0 1 352 216" transformations="translations" pos="92.9384 546.49" stroke="black" type="minipage" width="115.114" height="12.84" depth="7.86" valign="top" style="center">Remove unnecessary polynomials
+<text matrix="1 0 0 1 352 216" transformations="translations" pos="92.9384 546.49" stroke="black" type="minipage" width="127.114" height="12.84" depth="7.86" valign="top" style="center">Remove unnecessary polynomials and monomials
 </text>
-<text matrix="1 0 0 1 368 220" transformations="translations" pos="92.9384 493.927" stroke="black" type="minipage" width="86.203" height="11.873" depth="6.89" valign="top" style="center">Construct the~action matrix</text>
-<text matrix="1 0 0 1 376 216" transformations="translations" pos="85.5796 451.876" stroke="black" type="minipage" width="87.255" height="5.958" depth="0.96" valign="top" style="center">Generate solver</text>
+<text matrix="1 0 0 1 376 220" transformations="translations" pos="92.9384 493.927" stroke="black" type="minipage" width="86.203" height="11.873" depth="6.89" valign="top" style="center">Construct the~action matrix</text>
+<text matrix="1 0 0 1 380 216" transformations="translations" pos="85.5796 451.876" stroke="black" type="minipage" width="87.255" height="5.958" depth="0.96" valign="top" style="center">Generate solver</text>
 <path matrix="0.990244 0 0 0.909091 -3.92195 54.1818" stroke="black" pen="heavier">
 8 728 m
 8 684 l
@@ -296,21 +296,21 @@ h
 316 672 l
 h
 </path>
-<path matrix="1 0 0 1 0 4" stroke="black" pen="heavier">
+<path matrix="1.13793 0 0 1 -61.2414 4" stroke="black" pen="heavier">
 444 764 m
 444 732 l
 560 732 l
 560 764 l
 h
 </path>
-<path matrix="1 0 0 0.571429 4 297.143" stroke="black" pen="heavier">
+<path matrix="1 0 0 0.571429 8 297.143" stroke="black" pen="heavier">
 456 656 m
 456 628 l
 548 628 l
 548 656 l
 h
 </path>
-<path matrix="1.09091 0 0 1.14286 -41.4545 -89.1429" stroke="black" pen="heavier">
+<path matrix="1.09091 0 0 1.14286 -33.4545 -89.1429" stroke="black" pen="heavier">
 456 708 m
 456 680 l
 544 680 l
@@ -344,11 +344,11 @@ h
 268 672 m
 268 696 l
 </path>
-<path matrix="1 0 0 0.6 0 294.4" stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 0.6 8 294.4" stroke="black" pen="heavier" arrow="pointed/normal">
 504 736 m
 504 716 l
 </path>
-<path matrix="1 0 0 0.6 0 282.4" stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 0.6 8 282.4" stroke="black" pen="heavier" arrow="pointed/normal">
 504 676 m
 504 656 l
 </path>
@@ -359,16 +359,16 @@ h
 </path>
 <text matrix="1 0 0 1 -4 -4" transformations="translations" pos="388 740" stroke="black" type="label" width="14.999" height="6.808" depth="0" valign="baseline">Yes</text>
 <text matrix="1 0 0 1 -4 -12" transformations="translations" pos="388 664" stroke="black" type="label" width="12.453" height="6.808" depth="0" valign="baseline">No</text>
-<text matrix="1 0 0 1 -8 12" transformations="translations" pos="476 624" stroke="black" type="minipage" width="76" height="5.958" depth="0.96" valign="top" style="center">Online solver
+<text matrix="1 0 0 1 -4 12" transformations="translations" pos="476 624" stroke="black" type="minipage" width="76" height="5.958" depth="0.96" valign="top" style="center">Online solver
 </text>
-<path matrix="1 0 0 1 4 0" stroke="black" dash="dashed" pen="heavier">
+<path matrix="1 0 0 1 8 0" stroke="black" dash="dashed" pen="heavier">
 464 624 m
 464 640 l
 540 640 l
 540 624 l
 h
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 8 0" stroke="black" pen="heavier" arrow="pointed/normal">
 504 656 m
 504 644 l
 </path>
