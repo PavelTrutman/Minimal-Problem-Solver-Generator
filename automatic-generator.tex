@@ -65,6 +65,11 @@ Let us describe the construction of the action matrix in an informal and practic
 
 Now the solutions of the given system can be easily found by computing right eigenvectors of the action matrix $M_{x_k}$.
 
+\subsection{Solver generator}
+The last task of the automatic generator is to create a solver which will solve the given polynomial system for an arbitrary set of parameters. The current version of the automatic generator can generate solvers for MATLAB and Maple, but new code generators can be easily added. Which solvers will be generated can be set in the minimal problem definition by setting \texttt{cfg.exportCode}, e.g. to create both MATLAB and Maple solvers we set \texttt{cfg.exportCode = \{'matlab' 'maple'\}}.
+
+To create the solver we have to restore the process of creation of the matrix $M$. This process is saved as the matrix $M_c$ which contains unique identifiers on the positions where the given parameters have to be put. So the matrix $M$ can be built for each given set of parameters. Then the Gauss-Jordan elimination is called on $M$ so we get the matrix $\tilde{M}$. Now the action matrix is built in the same way as above and the solutions are extracted from it. To sum up the final solver just creates the matrix $M$ by putting parameters to the correct places. After Gauss-Jordan elimination the action matrix is built by copying some parts of rows of $\tilde{M}$ and then the solutions are extracted by using the eigenvectors of the action matrix.
+
 \section{Reimplementation}
 
 \section{Multiple eliminations solver}
