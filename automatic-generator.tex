@@ -6,7 +6,7 @@ The input of the automatic generator is a system of polynomial equations with a 
 The newest version of the automatic genenerator implemented in MATLAB can be downloaded from \cite{AutomaticGenerator}.
 
 \section{Description of the automatic generator}
-In this section we would like to briefly describe the procedure for generating solvers. The automatic generator consists of several independent modules, see Figure \ref{autogen:blockDiagram}. Since all these modules are independent, they can be easily improved or replaced by more efficient implementations. Next we describe each of these modules, full description can be found in \cite{AutoGen}.
+In this section we would like to briefly describe the procedure for generating solvers. The automatic generator consists of several independent modules, see Figure \ref{autogen:blockDiagram}. Since all these modules are independent, they can be easily improved or replaced by more efficient implementations. Next we describe each of these modules, full description can be found in \cite{AutoGen, KukelovaAlgMethods}.
 
 \begin{figure}[ht]
   \centering
@@ -51,6 +51,19 @@ We can remove a polynomial $r$ from the matrix $M$ if the corresponding eliminat
 Because the success of removing a polynomial depends on the previous removals, the number of removed polynomials depends on the ordering in which the polynomials are removed. In the automatic generator we start removing polynomials from the one with the largest leading monomial to the polynomial with the smallest leading monomial. Because it is very inefficient to remove polynomials one by one and perform each time an expensive Gauss-Jordan elimination, we can enhance the procedure by trying to remove more polynomials at the time. In the automatic generator there is used this heuristic: if we have successfully removed $k$ polynomials, we try to remove $2\cdot k$ polynomials in the next step. If the removal of $k$ polynomials have failed we try to remove $\frac{1}{4}k$ polynomials in the next step.
 
 Moreover we can reduce the size of the matrix $M$ by removing unnecessary monomials. A monomial is unnecessary when its removal does not affect the building of the action matrix. We have to keep all monomials such that they are leading monomials of polynominals in the corresponding matrix $\tilde{M}$ and all monomials that are present in the basis $B$. All other monomials can be removed. If we remove all such unnecessary monomials then the matrix $M$ will have dimensions $n \times (n + N)$ where $n$ is the number of the polynomials in the matrix $M$ and $N$ is the number of solutions of the given system.
+
+\subsection{Construction of the action matrix}
+This part of the automatic generator starts with the eliminated matrix $\tilde{M}$ of polynomials and variable $x_k$ for which all required polynomials $q_i$ are present in the $\tilde{M}$.
+
+Let us describe the construction of the action matrix in an informal and practical way rather than by using the theory. If the theory is needed it can be found in \cite{KukelovaAlgMethods}. The action matrix $M_{x_k}$ corresponding to the variable $x_k$ is a square matrix of dimensions $N \times N$ where $N$ is the number of elements of the monomial basis $B$. Each row and column corresponds to a monomial $b_i \in B$. Let the monomials $b_i$ are sorted such that if $b_l \prec b_k$ then $k < l$ where $\prec$ is a monomial ordering used. To the $i$-th row we put coefficients of the polynomial $m_i\ =\ \overline{(x_k \times b_i)}^F$ where $F$ are polynomials corresponding to $\tilde{M}$. Because $\tilde{M}$ is in a row echelon form there are two possibilities how the $i$-th row can be constructed:
+\begin{enumerate}
+  \item $x_k \times b_i\ =\ b_j$ for some $b_j \in B$\\
+        That means that $x_k \times b_i$ is irreducible by $F$ and $m_i$ is a monomial in $B$. In this case we set $(i, j)\ =\ 1$ and $(i, k)\ =\ 0$ where $k\ \neq\ j$.
+  \item $x_k \times b_i\ \neq\ b_j$ for all $b_j \in B$\\
+	  In this case there is $f$ such that $\LM(m_i)\ =\ \LM(f)$ where $f \in F$ so $m_i\ =\ x_k\times b_i - f$. Since all monomials of $f$ except $\LM(f)$ are from $B$, all monomials of $m_i$ are also from $B$. On the $(i, j)$ position of the matrix $M_{x_k}$ we put coefficient of $m_i$ at the monomial $b_j$.
+\end{enumerate}
+
+Now the solutions of the given system can be easily found by computing right eigenvectors of the action matrix $M_{x_k}$.
 
 \section{Reimplementation}
 
