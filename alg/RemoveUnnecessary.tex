@@ -1,0 +1,43 @@
+\begin{algorithm}[!ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $M$ a matrix representing a set of polynomials
+      \Statex $variable$ a variable
+      \Statex $algB$ a monomial basis $B$
+    \Ensure
+      \Statex $M$ a matrix representing a set of polynomials
+      \Statex
+
+      \State $rows \gets$ number of rows of $M$
+      \State $step \gets \max\{\lfloor rows/32\rfloor, 1\}$ 
+      \State $up \gets 1$
+      \State $filter \gets \{1,2,\dots,rows\}$
+      \While{$up \leq rows$}
+        \State $down \gets up + step - 1$
+	\If{$down > rows$}
+          \State $down \gets rows$
+	  \State $step \gets down - up + 1$
+	\EndIf
+	\State $filter_{Old} \gets filter$
+	\State $filter \gets filter \backslash \{up, up+1, \dots, down\}$
+	\State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$ only with rows specified by $filter$
+        \State $v \gets Check\ Action\ Matrix\ Conditions(\tilde{M}, variable, algB)$
+	\If{$v = variable$}
+          \State $up \gets down + 1$
+	  \State $step \gets 2\times step$
+	\Else
+	  \If{$step = 1$}
+	    \State $up \gets up + 1$
+	  \Else
+            \State $step \gets \max\{\lfloor step/4\rfloor, 1\}$
+	  \EndIf
+	  \State $filter \gets filter_{Old}$
+	\EndIf
+      \EndWhile
+
+      \State \Return $M$ only with rows specified by $filter$
+  \end{algorithmic}
+  \caption{Remove unnecessary polynomials}
+  \label{alg:removeUn}
+\end{algorithm}
+

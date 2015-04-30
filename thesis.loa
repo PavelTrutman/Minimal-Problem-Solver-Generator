@@ -10,5 +10,6 @@
 \contentsline {algorithm}{\numberline {8}{\ignorespaces Sel -- The normal strategy for $F_4$}}{12}{algorithm.8}
 \addvspace {10\p@ }
 \contentsline {algorithm}{\numberline {9}{\ignorespaces Polynomial generator -- One elimination solver}}{16}{algorithm.9}
+\contentsline {algorithm}{\numberline {10}{\ignorespaces Remove unnecessary polynomials}}{18}{algorithm.10}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
