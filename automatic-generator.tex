@@ -85,6 +85,7 @@ Next we have to set up the definition of the minimal problem we want to solve. H
 For example we want to generate solver for the 6-point focal length problem. We have defined this problem as a function \texttt{sw6pt.m} in the folder \texttt{minimalProblems}. By calling the function \texttt{gbs\_GenerateSolver('sw6pt')} we get solvers \texttt{solver\_sw6pt.m} and \texttt{solver\_sw6pt.txt} in the folder \texttt{solvers}.
 
 \section{Improvements}
+The bottleneck of the automatic generator is the polynomial generator module. Since the polynomials are generated systematically the matrices in the resultant solvers are often bigger than necessary which means that the solvers are not efficient. So many improvements of the automatic generator \cite{AutoGen} can be done. For example if we want to generate multiple elimination solvers as suggested in \cite{KukelovaAlgMethods} the polynomial generator module have to be improved or totaly replaced. In the same way some strategies from other algorithms, for example from the $F_4$ Algorithm \cite{F4}, can be taken over and implemented into the automatic generator. Because we are mostly working with sparse matrices in the automatic generator the variant of Gauss-Jordan elimination for sparse matrices can be implemented to save some computation time.
 
 \subsection{Reimplementation}
 
