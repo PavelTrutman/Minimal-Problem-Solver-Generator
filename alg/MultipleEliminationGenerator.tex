@@ -1,0 +1,35 @@
+\begin{algorithm}[ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $F$ a set of polynomials
+      \Statex $variables$ a list of variables
+      \Statex $algB$ a monomial basis $B$
+      \Statex $step$ an integer
+    \Ensure
+      \Statex $\tilde{M}$ a matrix representing a set of polynomials
+      \Statex $var$ a variable
+      \Statex
+
+      \State $maxdeg \gets \max\{\deg(f_i)\ |\ f_i \in F\}$
+      \State $j \gets 1$
+      \State $M_1 \gets \left\{m\times f_i\ |\ f_i \in F;\ \deg(m\times f_i)\ =\ \deg(f_i),\dots,maxdeg;\ m \textrm{ is a monomial} \right\}$
+      \State $\tilde{M}_1 \gets$ Reduction to a Row Echelon Form of $M_1$
+      \State $var \gets Check\ Action\ Matrix\ Conditions(\tilde{M}_1, variables, algB)$
+      \While{$var = \emptyset$}
+        \State $mindeg \gets maxdeg + 1$
+        \State $maxdeg \gets maxdeg + step$
+        \Repeat
+          \State $j \gets j + 1$
+	  \State $M_j \gets \tilde{M}_{j-1}\ \cup\ \Big\{m \times f_i\ |\ f_i \in \tilde{M}_{j-1};$
+	  \StatexIndent[4]$\deg(m\times f_i)\ = \ mindeg,\dots,maxdeg;\ m \textrm{ is a monomial}\Big\}$
+          \State $\tilde{M}_j \gets$ Reduction to a Row Echelon Form of $M_j$
+        \Until{number of nonzero rows of $\tilde{M}_j =$ number of nonzero rows of $\tilde{M}_{j-1}$}\label{alg:multiElGen:rue}
+	\State $j \gets j - 1$\label{alg:multiElGen:shred}
+        \State $var \gets Check\ Action\ Matrix\ Conditions(\tilde{M}_j, variables, algB)$
+      \EndWhile
+      \State \Return $(\tilde{M}_j, var)$
+  \end{algorithmic}
+  \caption{Polynomial generator -- Multiple elimination solver}
+  \label{alg:multiElGen}
+\end{algorithm}
+

@@ -11,5 +11,6 @@
 \addvspace {10\p@ }
 \contentsline {algorithm}{\numberline {9}{\ignorespaces Polynomial generator -- One elimination solver}}{16}{algorithm.9}
 \contentsline {algorithm}{\numberline {10}{\ignorespaces Remove unnecessary polynomials}}{18}{algorithm.10}
+\contentsline {algorithm}{\numberline {11}{\ignorespaces Polynomial generator -- Multiple elimination solver}}{21}{algorithm.11}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
