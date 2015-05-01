@@ -48,6 +48,7 @@ Let $f_i \in F$ where $F$ is a set of polynomials from the input. Let $maxdeg$ i
 In this whole process we need to keep track how the matrix $M$ was built. Recall that each coefficient of the polynomials $f_i$ has unique identifier assigned in the equations parser. Because the whole matrix $M$ contains only the polynomials $f_i$ or their multiples with monomials therefore in the matrix $M$ appear only the coefficients from the polynomials $f_i$. We just have to keep the positions of the coefficients. This is done by matrix $\hat{M}$. The matrix $\hat{M}$ is built in the same time as the matrix $M$ by this way: if we put a coefficient into the matrix $M$ we also put the corresponding indentifier to the matrix $\hat{M}$ at the same possition. The matrix $\hat{M}$ enables us to recover the process of polynomials generation in the code generator module.
 
 \subsection{Removing unnecessary polynomials and monomials}
+\label{subsec:removingUnPols}
 Since in the previous step the polynomials were generated systematically there may appear some polynomials which are not necessary for the constructing of the action matrix. The goal of this part of the automatic generator is to remove as many as possible not necessary polynomials.
 
 We can remove a polynomial $r$ from the matrix $M$ if the corresponding eliminated matrix $\tilde{M}$ still contains all required polynomials $q_i$. In this way we try to remove all polynomials from $M$.
@@ -110,7 +111,14 @@ To be able to restore the process of generation of polynomials and generate the 
 
 To enable generation of multiple elimination solvers we assign an integer to \texttt{cfg.Poly\-nomials\-Gene\-rator\-Cfg.GJstep} in the settings of the automatic generator. The value of the \texttt{GJstep} has the same meaning as the variable $step$ from the Algorithm \ref{alg:multiElGen}. E.g. by setting \texttt{GJstep = 1} the generated polynomials will be eliminated each time the total degree of generated polynomials is incremented by 1. If we set \texttt{GJstep = 0} the one elimination solver will be generated as written in the section \ref{subsec:polynomialGenerator}.
 
-\subsection{Removing unnecessary polynomials}
+\subsection{Removing redundant polynomials}
+We may notice that there appear matrices $\tilde{M}_j$ with many zero rows in the process of generation polynomials for multiple elimination solvers. This is caused because there are many dependent rows in the corresponding matrices $M_j$. These zero rows in matrices $\tilde{M}_j$ give us no new information so we want to remove as many as possible rows from the matrices $M_j$ such that the resulting matrices $\tilde{M}_j$ will have the same nonzero rows as before the removal and no zero rows.
+
+We know that we can remove the same number of rows from $M_j$ as it is the number of zero rows in $\tilde{M}_j$. But we do not know which rows we should remove. So we try to remove each row $r$ from $M_j$ and if the number of nonzero rows of $\tilde{M}_j$ stays the same the removal is successful, if not we have to return the row $r$ back into $M_j$. We end this process of removal when there is no zero row in the matrix $\tilde{M}_j$. Because performing the Gauss-Jordan elimination in each step of removing single row is inefficient we use the same heuristic as desribed in the section \ref{subsec:removingUnPols}. For better understanding we are providing the pseudocode of this removing as Algorithm \ref{alg:removeRedundant}.
+
+\input{alg/RemoveRedundant.tex}
+
+Because this removing process removes only zero rows from the matrices $\tilde{M}_j$ and no others rows are touched it does not influences the process of adding polynomials. Therefore this removing process is enabled by default and can not be disabled by any option from the automatic generator settings.
 
 \subsection{Matrix partitioning}
 

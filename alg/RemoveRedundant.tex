@@ -1,0 +1,45 @@
+\begin{algorithm}[!ht]
+  \begin{algorithmic}[1]
+    \Require
+      \Statex $M$ a matrix representing a set of polynomials
+      \Statex $\tilde{M}$ a matrix in a Row Echelon Form representing a set of polynomials
+    \Ensure
+      \Statex $M$ a matrix representing a set of polynomials
+      \Statex $\tilde{M}$ a matrix in a Row Echelon Form representing a set of polynomials
+      \Statex
+
+      \State $toRemove \gets $ number of zero rows of $\tilde{M}$
+      \State $nonZero \gets$ number of non zero rows of $\tilde{M}$
+      \State $rows \gets$ number of rows of $M$
+      \State $step \gets \max\{\lfloor toRemove/4\rfloor, 1\}$ 
+      \State $up \gets 1$
+      \State $filter \gets \{1,2,\dots,rows\}$
+      \While{$toRemove \neq 0$}
+        \State $down \gets up + step - 1$
+	\If{$down > rows$}
+          \State $down \gets rows$
+	  \State $step \gets down - up + 1$
+	\EndIf
+	\State $filter_{Old} \gets filter$
+	\State $filter \gets filter \backslash \{up, up+1, \dots, down\}$
+	\State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$ only with rows specified by $filter$
+	\If{number of non zero rows of $\tilde{M} < nonZero$}
+          \If{$step = 1$}
+	    \State $up \gets up + 1$
+	  \Else
+            \State $step \gets \max\{\lfloor step/4\rfloor, 1\}$
+	  \EndIf
+	  \State $filter \gets filter_{Old}$
+	\Else
+	  \State $toRemove \gets$ number of zero rows of $\tilde{M}$
+          \State $up \gets down + 1$
+	  \State $step \gets \min\{2\times step, toRemove\}$
+	\EndIf
+      \EndWhile
+
+      \State \Return $(M$ only with rows specified by $filter, \tilde{M})$
+  \end{algorithmic}
+  \caption{Remove redundant polynomials}
+  \label{alg:removeRedundant}
+\end{algorithm}
+
