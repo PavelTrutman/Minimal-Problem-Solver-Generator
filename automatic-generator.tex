@@ -121,6 +121,52 @@ We know that we can remove the same number of rows from $M_j$ as it is the numbe
 Because this removing process removes only zero rows from the matrices $\tilde{M}_j$ and no others rows are touched it does not influences the process of adding polynomials. Therefore this removing process is enabled by default and can not be disabled by any option from the automatic generator settings.
 
 \subsection{Matrix partitioning}
+In the automatic generator the matrices we are dealing with are mostly sparse, so some more efficient techniques can be used to work with them. This will of course result into generation of more efficient and numerically stable solvers.
+
+In this section we focus on how to speed up the Gauss-Jordan elimination of sparse matrices. We use the technique proposed in \cite{SBBD}. We observe that by permuting the rows and the columns of sparse matrices they can be transformed into matrices with block-diagonal structure known as singly-bordered block-diagonal (SBBD) form. Each diagonal block of the SBBD matrices forms an independent problem and therefore it can be independently eliminated. This speeds up the process of Gauss-Jordan elimination, because eliminating more smaller matrices is faster than eliminating one big matrix. If we divide the matrix into $k$ independent blocks that contain comparable number of entries the speed up is approximately $n^3 \rightarrow k\cdot\big(\frac{n}{k}\big)^3$. Moreover the permutation matrices that transform matrices to the SBBD forms are precomputed during the solver generation process and therefore the resultant solver is working already with matrices in the SBBD forms and does not have to spend time to computing the permutation matrices again.
+
+Let us say we want to eliminate matrix $M$. First of all we have remove columns that correspond to monomials from the basis $B$ from the matrix, because these columns should not be permuted and eliminated. Then we need to compute the permutation matrix. To compute the permutation matrices we use the state of the art hypergraph partitioning tool PaToH \cite{PaToH} with settings to divide the matrix into two independent blocks. We do the permutations of rows a columns and get two diagonal blocks $M_{11}$ and $M_{22}$ and some coupling columns that can not be assigned to any of the diagonal blocks. Next we perform two independent eliminations of the blocks $M_{11}$ and $M_{22}$ and permute all rows of $M$ to get the identity matrix in the left top corner. However we get non-eliminated submatrix in the right bottom corner of $M$. After eliminating this submatrix the rows above this submatrix are still not eliminated. If this is the last elimination in the solver we have to eliminate only the rows which we need to build the action matrix. If this is not the last elimination in the solver we have to eliminate them all.
+
+\paragraph{Example}
+Consider sparse matrix $M$ of size $119\times 143$ as it is shown in Figure \ref{fig:PaToH:start}. Columns 119 -- 143 correspond to monomials from the monomial basis $B$. When we remove these columns we get rectangular matrix of size $119 \times 119$ on which we execute the partitioning tool PaToH. After the permutation of the rows and columns we get the matrix in the SBBD form which can be seen in Figure \ref{fig:PaToH:permutation}. We get two diagonal blocks $M_{11}$ of size $71\times 30$ and $M_{22}$ of size $48 \times 38$ and 51 coupling columns which can not be assigned to any diagonal block. After two independent Gauss-Jordan eliminations of the blocks $M_{11}$ and $M_{22}$ and row permutation we get the identity matrix in the left top corner, see Figure \ref{fig:PaToH:eliminated}. Now we have to perform the Gauss-Jordan elimination on submatrix of size $51 \times 75$ in the right bottom corner. After this we get matrix as it is shown in Figure \ref{fig:PaToH:final}. Now in the matrix lefts uneliminated submatrix of size $68 \times 75$ in the right top corner. If this is the last elimination in the solver we do not have to eliminate it whole, but it is sufficient to eliminate only the rows we need to the constructing of the action matrix. If this is not the last elimination in the solver we have to eliminate the whole remaining uneliminated submatrix.
+
+\begin{figure}[ht]
+
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{PaToH/start.pdf}
+    \caption{The input matrix}
+    \label{fig:PaToH:start}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{PaToH/permutation.pdf}
+    \caption{The SSBD form of this matrix}
+    \label{fig:PaToH:permutation}
+  \end{subfigure}
+
+  \vskip\baselineskip
+
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{PaToH/eliminated.pdf}
+    \caption{A matrix obtained after two independent Gauss-Jordan eliminations}
+    \label{fig:PaToH:eliminated}
+  \end{subfigure}
+  \hspace{0.5cm}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{PaToH/final.pdf}
+    \caption{A matrix obtained after elimination of the right bottom submatrix}
+    \label{fig:PaToH:final}
+  \end{subfigure}
+  \caption{Example of the process of eliminating matrix using matrix partitioning. Colors: blue -- two independent diagonal blocks, green -- coupling columns, red -- columns corresponding to the basis $B$}
+
+\end{figure}
+
+Since the matrix partitioning have not to be efficient for all minimal problems, it can be easily enabled or disabled in the automatic generator. By setting \texttt{cfg.matrix\-Parti\-tioning = 'all'} the matrix partitioning is used to all Gauss-Jordan eliminations in the solver. If \texttt{cfg.matrixPartitioning = 'last'} is set the matrix partitioning is used only to the last Gauss-Jordan elimination in the solver. Matrix partitioning can totally disabled by setting \texttt{cfg.matrixPartitioning = 'none'}. At last we want to warn that the tool PaToH is not available under Windows OS so the matrix partitioning can not be used under this system.
 
 \subsection{F4 strategy}
 
