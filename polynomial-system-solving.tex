@@ -1,4 +1,5 @@
 \chapter{Polynomial system solving}
+\label{chapter:polynomialSolving}
 Firstly we review the state of the art algorithms for computing Gr\"obner basis. Better understanding of these algorithms helps us to integrate them into polynomial solving algorithms based on Gr\"obner basis computation more efficiently.
 
 \section{Buchberger Algorithm}
@@ -38,6 +39,7 @@ In the end of the function, the polynomial $h$ is added into the Gr\"obner basis
 \input{alg/Update.tex}
 
 \section{$F_4$ Algorithm}
+\label{sec:F4}
 The $F_4$ Algorithm \cite{F4} by Jean-Charles Faug\`ere is an improved version of the Buchberger's Algorithm. The $F_4$ replaces the classical polynomial reduction found in the Buchberger's Algorithm by a simultaneous reduction of several polynomials. This reduction mechanism is achieved by a symbolic precomputation followed by Gaussian elimination implemented using sparse linear algebra methods. $F_4$ speeds up the reduction step by exchanging multiple polynomial divisions for row-reduction of a single matrix.
 
 \subsection{Improved Algorithm $F_4$}
@@ -91,7 +93,7 @@ For the speed of the $F_4$ Algorithm, it is very important how the critical pair
 
 \begin{itemize}
   \item The easiest implementation is to select all pairs from $P$. In this case we reduce all critical pairs at the same time.
-  \item If the function \textit{Sel} selects only one critical pair then the $F_4$ Algorithm is the Buchberger's Algorithm. In this case the \textit{Sel} function corresponds to the selection strategy in the Buchberger's Algorithm.
+  \item If the function \textit{Sel} selects only one critical pair then the $F_4$ Algorithm is the Buchberger Algorithm. In this case the \textit{Sel} function corresponds to the selection strategy in the Buchberger Algorithm.
   \item The best function that Faug\`ere has tested is to select all critical pairs with a minimal total degree. Faug\`ere calls this strategy the \textit{normal strategy for} $F_4$. Pseudocode of this function can be found as Algorithm \ref{alg:sel}.
 \end{itemize}
 
