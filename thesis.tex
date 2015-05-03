@@ -25,19 +25,14 @@
 \input{acronyms}
 \makeglossaries
 
-
+% algorithmic macros and settings
 \newcounter{counter}
-
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 \algdef{S}[IF]{IfML}[1]{\algorithmicif\ #1}
 \newcommand{\StatexIndent}[1][1]{
   \Statex\forloop{counter}{0}{\value{counter} < #1}{\hskip\algorithmicindent\hskip-0.25em}
 }
-
-% math operators
-\DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\LM}{LM}
 
 \startThesisInfo
 \title{Minimal Problem Solver Generator}
@@ -52,12 +47,13 @@
 \stopThesisInfo
 
 % ============================== your definitions (abbreviations etc.)
-%\def\Ax{\mathbf{A}_x}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\LM}{LM}
+
 \setitemize{noitemsep,topsep=0.2cm,parsep=0.2cm,partopsep=0pt,leftmargin=1cm}
 \setenumerate{noitemsep,topsep=0.2cm,parsep=0.2cm,partopsep=0pt,leftmargin=1cm}
 
 % =========================================================== settings
-%\graphicspath{{fig-ch01/}{fig-ch02/}}
 \graphicspath{{images/}}
 
 % ========================================================== text body
@@ -69,11 +65,12 @@
 \includepdf[pages={1}]{pdfs/assignment-ENG.pdf}
 \includepdf[pages={1}]{pdfs/assignment-CZE.pdf}
 
-\input{acknowledgement}
+\chapter*{Acknowledgements}\input{acknowledgement}
 \clearpage
-\chapter*{Abstract}\input{abstract}
+\input{declaration}
 \clearpage
-\chapter*{Resum\'e}\input{resume}
+\input{abstract}
+\clearpage
 \cleardoublepage\def\thepage{\arabic{page}}\setcounter{page}{1}
 \tableofcontents\pagestyle{headings}
 \listofalgorithms
