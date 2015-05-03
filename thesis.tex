@@ -6,7 +6,6 @@
 \usepackage{enumitem}
 \usepackage{textcomp}
 \usepackage{algorithm}
-%\usepackage{algorithmic}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -14,6 +13,10 @@
 
 \usepackage{subcaption}
 
+% to inlucude pdf pages
+\usepackage{pdfpages}
+
+% list of symbols and abbreviations
 \usepackage[acronym,nonumberlist,style=long,sort=def]{glossaries}
 \setlength{\glsdescwidth}{0.6\linewidth}
 \setlength{\glspagelistwidth}{0.4\linewidth}
@@ -60,9 +63,12 @@
 % ========================================================== text body
 \begin{document}
 
-\maketitle[3]
-
 \cleardoublepage\def\thepage{\roman{page}}\setcounter{page}{3}
+
+% thesis assignment as required by FEE, CTU
+\includepdf[pages={1}]{pdfs/assignment-ENG.pdf}
+\includepdf[pages={1}]{pdfs/assignment-CZE.pdf}
+
 \input{acknowledgement}
 \clearpage
 \chapter*{Abstract}\input{abstract}
@@ -73,7 +79,7 @@
 \listofalgorithms
 
 \glsaddall
-\printglossary[type=acronym,title=List of Abbreviations]
+\printglossary[type=acronym,title=List of Symbols and Abbreviations]
 
 \input{introduction.tex}
 
