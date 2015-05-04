@@ -12,7 +12,7 @@
 
       \State $maxdeg \gets \max\{\deg(f_i)\ |\ f_i \in F\}$
       \State $j \gets 1$
-      \State $M_1 \gets \left\{m\times f_i\ |\ f_i \in F;\ \deg(m\times f_i)\ =\ \deg(f_i),\dots,maxdeg;\ m \textrm{ is a monomial} \right\}$
+      \State $M_1 \gets \left\{m f_i\ |\ f_i \in F;\ \deg(m f_i)\ =\ \deg(f_i),\dots,maxdeg;\ m \textrm{ is a monomial} \right\}$
       \State $\tilde{M}_1 \gets$ Reduction to a Row Echelon Form of $M_1$
       \State $var \gets Check\ Action\ Matrix\ Conditions(\tilde{M}_1, variables, algB)$
       \While{$var = \emptyset$}
@@ -20,7 +20,7 @@
         \State $maxdeg \gets maxdeg + step$
         \Repeat
           \State $j \gets j + 1$
-	  \State $M_j \gets \tilde{M}_{j-1}\ \cup\ \Big\{m \times f_i\ |\ f_i \in \tilde{M}_{j-1};$
+	  \State $M_j \gets \tilde{M}_{j-1}\ \cup\ \Big\{m f_i\ |\ f_i \in \tilde{M}_{j-1};$
 	  \StatexIndent[4]$\deg(m\times f_i)\ = \ mindeg,\dots,maxdeg;\ m \textrm{ is a monomial}\Big\}$
           \State $\tilde{M}_j \gets$ Reduction to a Row Echelon Form of $M_j$
         \Until{number of nonzero rows of $\tilde{M}_j =$ number of nonzero rows of $\tilde{M}_{j-1}$}\label{alg:multiElGen:rue}
