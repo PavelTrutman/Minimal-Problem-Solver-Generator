@@ -3,10 +3,11 @@
 \backcite {Becker93}{{6}{2.1.2}{subsection.2.1.2}}
 \backcite {Gebauer-Moller88}{{6}{2.1.2}{subsection.2.1.2}}
 \backcite {F4}{{7}{2.2}{section.2.2}}
+\backcite {F4}{{9}{2.2.1}{subsection.2.2.1}}
 \backcite {Gebauer-Moller88}{{10}{2.2.2}{subsection.2.2.2}}
 \backcite {F5}{{12}{2.3}{section.2.3}}
 \backcite {Cox-Little-Shea97}{{12}{2.3}{section.2.3}}
-\backcite {GBSyzygies}{{13}{2.3}{section.2.3}}
+\backcite {GBSyzygies}{{12}{2.3}{section.2.3}}
 \backcite {F5}{{13}{2.3}{section.2.3}}
 \backcite {Segers}{{13}{2.3}{equation.2.3.5}}
 \backcite {Stegers}{{13}{2.3}{equation.2.3.5}}
@@ -18,6 +19,7 @@
 \backcite {AutoGen, KukelovaAlgMethods}{{14}{3.1}{section.3.1}}
 \backcite {M2}{{15}{3.1.3}{subsection.3.1.3}}
 \backcite {KukelovaAlgMethods}{{17}{3.1.6}{subsection.3.1.6}}
+\backcite {6pt}{{19}{3.1.8}{subsection.3.1.8}}
 \backcite {AutoGen}{{19}{3.2}{section.3.2}}
 \backcite {KukelovaAlgMethods}{{19}{3.2}{section.3.2}}
 \backcite {F4}{{19}{3.2}{section.3.2}}
