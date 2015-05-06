@@ -186,3 +186,13 @@ The key function in the $F_4$ strategy is the \textit{Sel} function which is des
 
 \section{Benchmark}
 In the automatic generator as presented in this thesis, there are many different methods which can be used to generate the solver. Efficiency of the generated solver depends on the choosen method. It shows up, that different methods are efficient for different minimal problems. Therefore, we need a tool which will generate more solvers for a choosen minimal problem. Each solver will be generated with different method used. In the end, the tool will compare the generated solvers so we will be able to choose which solver we will use in the application. The tool have to compare the solver in many aspects because in different applications we have different requirements. For exmaple, in one application, we need solvers which are very fast, but in another, we may prefere solvers that are slower, but more numerically stable. Therefore, in this section, we present such a tool which we call the benchmark of the automatic generator.
+
+\subsection{Structure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.3\textwidth]{Benchmark.pdf}
+  \caption{Block diagram of the benchmark of the automatic generator}
+  \label{autogen:benchmark}
+\end{figure}
+
