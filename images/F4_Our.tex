@@ -1,0 +1,46 @@
+\begin{Verbatim}[fontsize=\footnotesize]
+> F4([a*b*c*d - 1, a*b*c + a*b*d + a*c*d + b*c*d, a*b + b*c + a*d + c*d, a + b + c + d],
+     SelMinDeg, tdeg(a, b, c, d));
+
+        0.00: |P| = 3, Selected 1 of degree 2
+        0.00: Symbolic Preprocessing: |L| = 2, |Fd| = 0
+        0.01: Reducing matrix of size 3x7
+        0.02: Reduction finished
+
+        0.02: |P| = 2, Selected 1 of degree 3
+        0.02: Symbolic Preprocessing: |L| = 2, |Fd| = 3
+        0.03: Reducing matrix of size 4x9
+        0.03: Reduction finished
+
+        0.03: |P| = 2, Selected 2 of degree 4
+        0.03: Symbolic Preprocessing: |L| = 4, |Fd| = 7
+        0.04: Reducing matrix of size 8x12
+        0.05: Reduction finished
+
+        0.05: |P| = 2, Selected 2 of degree 5
+        0.05: Symbolic Preprocessing: |L| = 4, |Fd| = 15
+        0.06: Reducing matrix of size 6x12
+        0.06: Reduction finished
+
+        0.06: |P| = 3, Selected 3 of degree 6
+        0.07: Symbolic Preprocessing: |L| = 6, |Fd| = 21
+        0.08: Reducing matrix of size 10x14
+        0.08: Reduction finished
+
+        0.09: |P| = 2, Selected 2 of degree 7
+        0.09: Symbolic Preprocessing: |L| = 4, |Fd| = 31
+        0.10: Reducing matrix of size 7x10
+        0.10: Reduction finished
+
+        0.10: Computing reduced Groebner basis
+\end{Verbatim}
+\begin{eqnarray*}
+	&  b^2+2bd+d^2\\
+	&  a+b+c+d\\
+	&  bc^2+c^2d-bd^2-d^3\\
+	&  bd^4+d^5-b-d\\
+	&  c^3d^2+c^2d^3-c-d\\
+	&  d^4c^2+bc-bd+cd-2d^2\\
+	&  -1+bcd^2+c^2d^2-bd^3+cd^3-d^4
+\end{eqnarray*}
+
