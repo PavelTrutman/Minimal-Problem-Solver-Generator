@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70005" creator="Ipe 7.1.4">
-<info created="D:20150506220154" modified="D:20150506220934"/>
+<info created="D:20150506220154" modified="D:20150507224542"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -232,8 +232,8 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 24 -124" transformations="translations" pos="208 624" stroke="black" type="minipage" width="112" height="5.958" depth="0.96" valign="top" style="center">Show results</text>
-<path matrix="1 0 0 1 24 -124" stroke="black" pen="heavier">
+<text layer="alpha" matrix="1 0 0 1 24 -128" transformations="translations" pos="208 624" stroke="black" type="minipage" width="112" height="5.958" depth="0.96" valign="top" style="center">Show results</text>
+<path matrix="1 0 0 1 24 -128" stroke="black" pen="heavier">
 200 632 m
 200 608 l
 328 608 l
@@ -245,7 +245,7 @@ h
 <text matrix="1 0 0 1 32 -20" transformations="translations" pos="168 720" stroke="black" type="minipage" width="96" height="6.926" depth="1.93" valign="top" style="center">For each template do</text>
 <text matrix="1 0 0 1 24 -44" transformations="translations" pos="208 696" stroke="black" type="minipage" width="112" height="5.958" depth="0.96" valign="top" style="center">Generate solver</text>
 <text matrix="1 0 0 1 24 -68" transformations="translations" pos="208 672" stroke="black" type="minipage" width="112" height="11.924" depth="6.95" valign="top" style="center">Run solver for many instances</text>
-<text matrix="1 0 0 1 24 -92" transformations="translations" pos="208 640" stroke="black" type="minipage" width="112" height="5.958" depth="0.96" valign="top" style="center">Evaluate results</text>
+<text matrix="1 0 0 1 24 -96" transformations="translations" pos="208 640" stroke="black" type="minipage" width="112" height="5.958" depth="0.96" valign="top" style="center">Evaluate results</text>
 <path matrix="1 0 0 1 32 12" stroke="black" pen="heavier">
 160 804 m
 160 780 l
@@ -274,14 +274,14 @@ h
 328 704 l
 h
 </path>
-<path matrix="1 0 0 1 24 -68" stroke="black" pen="heavier">
+<path matrix="1 0 0 1.125 24 -153" stroke="black" pen="heavier">
 200 680 m
 200 648 l
 328 648 l
 328 680 l
 h
 </path>
-<path matrix="1 0 0 1 24 -92" stroke="black" pen="heavier">
+<path matrix="1 0 0 1 24 -96" stroke="black" pen="heavier">
 200 648 m
 200 624 l
 328 624 l
@@ -300,15 +300,15 @@ h
 288 636 m
 288 616 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 0 -4" stroke="black" pen="heavier" arrow="pointed/normal">
 288 580 m
 288 560 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1 0 -4" stroke="black" pen="heavier" arrow="pointed/normal">
 288 532 m
 288 512 l
 </path>
-<path stroke="black" pen="heavier" arrow="pointed/normal">
+<path matrix="1 0 0 1.01786 0 -12.4286" stroke="black" pen="heavier" arrow="pointed/normal">
 288 484 m
 288 472 l
 176 472 l
