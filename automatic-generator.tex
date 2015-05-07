@@ -202,8 +202,14 @@ Finally, we have to show the results in some well-arranged way. The presentation
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.3\textwidth]{Benchmark.pdf}
+  \vspace{0.5cm}
+  \includegraphics[height=10cm]{Benchmark.pdf}
+  \vspace{0.5cm}
   \caption{Block diagram of the benchmark of the automatic generator}
   \label{autogen:benchmark}
 \end{figure}
 
+\subsection{Usage}
+The benchmark of the automatic generator is designed to be used easily, but also to be easily modified to give us the results we want to know. The benchmark of minimal problem \texttt{minimalProblem} is called \texttt{gbs\_Benchmark(minimalProblem, benchmark, input\-Data, correctOutput, validationFunction, renderFunction)} where the first two arguments are compulsory and the others are optional. The parameter \texttt{benchmark} is a function handler to the function which provides the set of benchmark templates. The \texttt{input\-Data} is a set of parameters on which we want to test the generated solvers. If this argument is not provided, random generated parameters are used. The \texttt{correctOutput} is a set of expected results of the solvers. These correct outputs are used to compare the numerical stability of the solvers. The function handler \texttt{validationFunction} is a handler to a function which evalutes the results and returns the set of errors. The default \texttt{validationFunction} substitutes computed solutions into the polynomials from the solver and evalutes the polynomials. The function handler \texttt{renderFunction} is a handler to a function which shows the results. If this function is not provided, the default function is used. This default function renders histograms of $\log_{10}$ of errors.
+
+For clarity, we provide an example. We want to benchmark solvers for the 6-point focal length problem \cite{6pt} and we are considering one elimination and multi elimination solvers. We have no real data to test these solvers and therefore, we have no expected results. We want to use the default validation function and the default function for presenting the results of the benchmark. In this case we call the benchmark we these paramters \texttt{gbs\_Benchmark('sw6pt', @bench\_elimination)}. From the shown results, we decide which solver we will use in the application.
