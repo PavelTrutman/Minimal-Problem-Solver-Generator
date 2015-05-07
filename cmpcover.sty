@@ -407,7 +407,8 @@
   %Series Editor: Ond\v{r}ej Drbohlav\\[1.1ex]
   Published by\\[1.1ex]}
 
-\ifx\dateczech\undefined
+%\ifx\dateczech\undefined
+\iflanguage{english}{
 \def\@Address{%
   Center for Machine Perception, Department of Cybernetics\\
   Faculty of Electrical Engineering, Czech Technical University\\
@@ -424,8 +425,10 @@
 \def\@areportT{ACTIVITY REPORT}
 \def\@phdthesisT{PhD THESIS}
 \def\@mscthesisT{MASTER'S THESIS}
+\def\@bscthesisT{BACHELOR THESIS}
 \def\@reprintT{REPRINT}
-\else
+%\else
+}{
 \def\@Address{%
   Centrum strojov\'eho vn{\'\i}m\'an{\'\i}, Katedra kybernetiky\\
   Fakulta elektrotechnick\'a \v{C}VUT\\
@@ -442,8 +445,10 @@
 \def\@areportT{V\'YRO\v{C}N{\'I} ZPR\'AVA}
 \def\@phdthesisT{DOKTORSK\'A DIZERTACE}
 \def\@mscthesisT{DIPLOMOVÁ PRÁCE}
+\def\@bscthesisT{BAKAL\'A\v RSK\'A PRÁCE}
 \def\@reprintT{P\v{R}ETISK}
-\fi
+%\fi
+}
 
 
  %
@@ -783,7 +788,7 @@
   \ifx\FS\coverstyle
    \def\styleok{}
    \Suppressed@false
-   %\gdef\@SideNote{}%\@makeISSN}
+   \gdef\@SideNote{\@makeISSN}
    \gdef\@SideNote{\@makeISSN}
    \gdef\@doEditor{\@Editor}
    \gdef\@SideBarText{\@mscthesisT}
@@ -798,6 +803,26 @@
    \gdef\stat@CMPAdvisor{mandatory}
    \gdef\stat@Acknowledgement{mandatory}
   \fi
+  \def\coverstyle{bscthesis}
+  \ifx\FS\coverstyle
+   \def\styleok{}
+   \Suppressed@false
+   \gdef\@SideNote{\@makeISSN}
+   \gdef\@SideNote{\@makeISSN}
+   \gdef\@doEditor{\@Editor}
+   \gdef\@SideBarText{\@bscthesisT}
+   \gdef\stat@ReportNo{mandatory}
+   \gdef\stat@Affiliation{ignored}
+   \gdef\stat@Email{recommended}
+   \gdef\stat@Date{recommended}
+   \gdef\stat@ConfidentialLabel{ignored}
+   \gdef\stat@Reference{ignored}
+   \gdef\stat@ftpFilename{recommended}
+   \gdef\stat@Copyright{ignored}
+   \gdef\stat@CMPAdvisor{mandatory}
+   \gdef\stat@Acknowledgement{mandatory}
+  \fi
+
   \def\coverstyle{misc}
   \ifx\FS\coverstyle
    \def\styleok{}
@@ -899,6 +924,7 @@
 \DeclareOption{reprint}{\FrameStyle{reprint}}
 \DeclareOption{phdthesis}{\FrameStyle{phdthesis}}
 \DeclareOption{mscthesis}{\FrameStyle{mscthesis}}
+\DeclareOption{bscthesis}{\FrameStyle{bscthesis}}
 \DeclareOption{misc}{
  \FrameStyle{misc}
  \gdef\CMPSideBarText#1{\gdef\@SideBarText{#1}}}

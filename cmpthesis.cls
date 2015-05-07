@@ -11,9 +11,11 @@
 \ProvidesClass{cmpthesis}[2008/05/19 v0.4 (Vit Zyka)]
 
 % --- options
+\def\CMPThesisTypeBsc{bsc}
 \def\CMPThesisTypeMsc{msc}
 \def\CMPThesisTypePhd{phd}
 \let\CMPThesisType\CMPThesisTypeMsc
+\DeclareOption{bsc}{\let\CMPThesisType\CMPThesisTypeBsc}
 \DeclareOption{msc}{\let\CMPThesisType\CMPThesisTypeMsc}
 \DeclareOption{phd}{\let\CMPThesisType\CMPThesisTypePhd}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
