@@ -1,0 +1,14 @@
+set terminal epslatex size 6,3.5
+set output "graphs/elim.tex"
+
+set grid
+set key right top
+set title ""
+set xlabel "log$_{10}$($\|$error$\|$)"
+set ylabel "Frequency"
+set samples 10000
+
+plot [:6][:14]'sources/graphs/elim.dat' using 1:2 title 'Without matrix partitioning' smooth bezier lt 1 lc rgb "blue" lw 3, \
+     'sources/graphs/elim.dat' using 1:3 title 'Last elimination with matrix partitioning' smooth bezier lt 1 lc rgb "red" lw 3, \
+     'sources/graphs/elim.dat' using 1:4 title 'All eliminations with matrix partitioning' smooth bezier lt 1 lc rgb "green" lw 3, \
+
