@@ -43,7 +43,7 @@ function [] = prepare(problem)
   for i = 1:length(TeX)
     fprintf(fid, TeX{i, 1});
     for j = 1:length(res)
-     fprintf(fid, ' & %5.3f', TeX{i, 2}(time{j}));
+     fprintf(fid, ' & %5.3f s', TeX{i, 2}(time{j}));
     end
     fprintf(fid, '\\\\\n');
   end
