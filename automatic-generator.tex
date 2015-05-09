@@ -172,6 +172,7 @@ Consider sparse matrix $M$ of size $119\times 143$ as it is shown in Figure \ref
 Since matrix partitioning does not have to be efficient for all minimal problems, it can be easily enabled or disabled in the automatic generator. By setting \texttt{cfg.matrix\-Parti\-tioning = 'all'} matrix partitioning is used to all Gauss-Jordan eliminations in the solver. If \texttt{cfg.matrixPartitioning = 'last'} is set, matrix partitioning is used only to the last Gauss-Jordan elimination in the solver. Matrix partitioning can be totally disabled by setting \texttt{cfg.matrixPartitioning = 'none'}. At last, we want to warn that the tool PaToH is not available under Windows OS so the matrix partitioning can not be used under this system.
 
 \subsection{F4 strategy}
+\label{subsec:F4}
 Because polynomials are generated systematically in the polynomial generator module, as it is described in section \ref{subsec:polynomialGenerator}, many of them are supefluous and therefore, need not be generated. Since the automatic generator consists of independent modules, we can replace the polynomial generator module by some better implementation.
 
 We have described some of the state of the art techniques how polynomial systems can be solved in the chapter \ref{chapter:polynomialSolving}. Therefore, we can take over some of them and implement them into the automatic generator. In the section \ref{sec:F4}, we have understood the $F_4$ \cite{F4} Algorithm so we have implemented this technique into the automatic generator.
