@@ -36,6 +36,12 @@ The computing times of these solvers are in the Table \ref{tab:elim}. The numeri
 You can see that the numerical stability of the multiple elimination solvers is slightly worse than the numerical stability of the one elimination solver. In the contrary, the multi elimination solvers are approximately 1.5 times faster than the one elimination solver. Interesting is that the second and third solvers are equivalently fast, but one of them consists of four eliminations and the second one only of two eliminations. Therefore, we can not say that more eliminations lead to faster solvers. So, it is important to run the benchmark to find the optimal number of eliminations for each minimal problem and then choose the best solver for the application.
 
 \section{Matrix partitioning}
+In this section, we compare the solvers using matrix partitioning as described in the section \ref{subsec:matrixPart}. For comparing, we have used multiple elimination solvers as described in the section \ref{subsec:multipleSolver}. We have set the variable $step$ to one so the generated solvers have four eliminations. The first solver has been generated without matrix partitioning. In the second one, matrix partitioning was used only for the last elimination and the third solver has been generated with matrix partitioning for all four eliminations used.
+
+The benchmark templates used for this comparison are specified in the function \textit{bench\_\-mat\-rix\-Partitioning} in the folder \texttt{benchmark} in the automatic generator. The variable $step$ was set to 1 and all other settings have remained default.
+
+The computing times of these tree solvers are in the Table \ref{tab:part} and the numerical stability is shown as histogram of $\log_{10}$ of absolute values of errors in the Figure \ref{graph:part}.
+
 \begin{figure}[ht]
   \centering
   \resizebox{0.95\textwidth}{!}{\input{graphs/part.tex}}
@@ -56,6 +62,8 @@ You can see that the numerical stability of the multiple elimination solvers is 
   \caption{Computing times of solver without matrix partitioning, of solver with matrix partitioning used for the last elimination and of solver with matrix partitioning used for all eliminations in the solver.}
   \label{tab:part}
 \end{table}
+
+We can see that the numerical stability remained the same for all three solvers. The solver with matrix partitioning for the last elimination used is approximately twice faster than solver without matrix paritioning. There is no big difference between the solver with matrix partitioning for the last elimination used and the solver with matrix partitioning used for all eliminations in the solver. The reason is, that when eliminating not the last matrix in the solver, we have to eliminate all the coupling columns. We do not have to do this when it is the last elimination. Therefore, the speed up of elimination of not the last matrix is not so big as the speed up of the last elimination.
 
 \section{$F_4$ strategy}
 \begin{figure}[ht]
