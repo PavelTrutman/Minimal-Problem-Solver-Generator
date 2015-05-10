@@ -4,10 +4,10 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-fast: *.tex alg/*.tex graphs/*.pdf
+fast: *.tex alg/*.tex graphs/*.pdf cmpthesis.cls cmpcover.sty
 	pdflatex thesis.tex
 
-thesis.pdf: *.tex *.bib alg/*.tex graphs/*.pdf
+thesis.pdf: *.tex *.bib alg/*.tex graphs/*.pdf cmpthesis.cls cmpcover.sty
 	pdflatex thesis.tex
 	makeglossaries thesis
 	bibtex thesis
