@@ -48,10 +48,13 @@
      filecolor=dblue,urlcolor=dblue,linkcolor=dred,pagecolor=dred,
      breaklinks=true,pdfpagemode=UseNone,plainpages=false,
 %     backref=true,pagebackref=true,breaklinks=true,
-     pdfauthor={},
-     pdfsubject={thesis},
-     pdftitle={},
-     pdfkeywords={}}
+     bookmarks=true,
+     pdfauthor={Pavel Trutman},
+     pdfsubject={Bachelor thesis},
+     pdftitle={Minimal Problem Solver Generator},
+     pdfcreator={Pavel Trutman},
+     pdfkeywords={computer vision} {robotics} {minimal problems} {polynomials equations} {Gr\"obner basis},
+  }
 \else
   \usepackage{color,graphicx}
 \fi
