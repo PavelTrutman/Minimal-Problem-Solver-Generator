@@ -9,7 +9,7 @@
       \Statex
 
       \State $toRemove \gets $ number of zero rows of $\tilde{M}$
-      \State $nonZero \gets$ number of non zero rows of $\tilde{M}$
+      \State $nonZero \gets$ number of non-zero rows of $\tilde{M}$
       \State $rows \gets$ number of rows of $M$
       \State $step \gets \max\{\lfloor toRemove/4\rfloor, 1\}$ 
       \State $up \gets 1$
@@ -23,7 +23,7 @@
 	\State $filter_{Old} \gets filter$
 	\State $filter \gets filter \backslash \{up, up+1, \dots, down\}$
 	\State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$ only with rows specified by $filter$
-	\If{number of non zero rows of $\tilde{M} < nonZero$}
+	\If{number of non-zero rows of $\tilde{M} < nonZero$}
           \If{$step = 1$}
 	    \State $up \gets up + 1$
 	  \Else
