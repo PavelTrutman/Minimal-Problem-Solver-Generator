@@ -4,9 +4,9 @@ function [] = prepare(problem)
   
   res = [];
   edges = [];
-  TeX{1, 1} = '\\textbf{minimal}';
-  TeX{2, 1} = '\\textbf{median}';
-  TeX{3, 1} = '\\textbf{maximal}';
+  TeX{1, 1} = '\\textbf{minimal time}';
+  TeX{2, 1} = '\\textbf{median of times}';
+  TeX{3, 1} = '\\textbf{maximal time}';
   TeX{1, 2} = @min;
   TeX{2, 2} = @median;
   TeX{3, 2} = @max;
