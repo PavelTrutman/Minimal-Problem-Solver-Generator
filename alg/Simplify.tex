@@ -13,7 +13,7 @@
         \State $\tilde{F}_j$ is the Row Echelon Form of $F_j$
         \State there exists a (unique) $p\in \tilde{F}_j$ such that $\textrm{LM}(p) = \textrm{LM}(u f)$
         \If{$u\neq m$}
-          \State \Return $Simplify(\frac{m}{u}, p, \mathcal{F})$
+          \State \Return \textit{Simplify}$(\frac{m}{u}, p, \mathcal{F})$
         \Else
           \State \Return $(1, p)$
         \EndIf

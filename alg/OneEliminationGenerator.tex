@@ -12,12 +12,12 @@
     \State $maxdeg \gets \max\{\deg(f_i)\ |\ f_i \in F\}$
     \State $M \gets \left\{m f_i\ |\ f_i \in F;\ \deg(m f_i)\ =\ \deg(f_i),\dots,maxdeg;\ m \textrm{ is a monomial} \right\}$
     \State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$
-    \State $var \gets Check\ Action\ Matrix\ Conditions(\tilde{M}, variables, algB)$
+    \State $var \gets$ \textit{CheckActionMatrixConditions}$(\tilde{M}, variables, algB)$
     \While{$var = \emptyset$}
       \State $maxdeg \gets maxdeg + 1$
       \State $M \gets M \cup \left\{m f_i\ |\ f_i \in F;\ \deg(m f_i)\ = \ maxdeg;\ m \textrm{ is a monomial}\right\}$
       \State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$
-      \State $var \gets Check\ Action\ Matrix\ Conditions(\tilde{M}, variables, algB)$
+      \State $var \gets$ \textit{CheckActionMatrixConditions}$(\tilde{M}, variables, algB)$
     \EndWhile
     \State \Return $(\tilde{M}, var)$
   \end{algorithmic}

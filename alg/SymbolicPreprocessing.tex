@@ -8,14 +8,14 @@
       \Statex $F$ a finite set of polynomials
       \Statex
 
-    \State $F \gets \left\{multiply(Simplify(m, f, \mathcal{F}))\ |\ (m, f)\in L\right\}$
+    \State $F \gets \big\{multiply($\textit{Simplify}$(m, f, \mathcal{F}))\ |\ (m, f)\in L\big\}$
     \State $Done \gets \textrm{LM}(F)$
     \While{$\textrm{M}(F) \neq Done$}
       \State $m$ an element of $\textrm{M}(F)\backslash Done$
       \State $Done \gets Done \cup \{m\}$
       \If{$m$ is top reducible modulo $G$}
         \State $m = m^\prime \cdot\textrm{LM}(f)$ for some $f \in G$ and some monomial $m^\prime$
-        \State $F \gets F \cup \left\{multiply(Simplify(m^\prime, f, \mathcal{F}))\right\}$
+        \State $F \gets F \cup \big\{multiply($\textit{Simplify}$(m^\prime, f, \mathcal{F}))\big\}$
       \EndIf
     \EndWhile
 

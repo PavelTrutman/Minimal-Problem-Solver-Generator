@@ -23,8 +23,8 @@
 
 % --- load standard KOMA script class
 \LoadClass
-  [11pt,a4paper,twoside,bibtotoc,idxtotoc,normalheadings,abstracton,
-   cleardoubleempty]
+  [11pt,a4paper,twoside,bibliography=totoc,index=totoc,headings=normal,abstracton,
+   cleardoublepage=empty]
   {scrreprt}
 %\areaset{150mm}{48\baselineskip}
 \typearea[25mm]{14}
@@ -45,13 +45,15 @@
   \definecolor{dred}{rgb}{0.4,0,0}  
   \usepackage[pdftex,backref=page]{hyperref}
   \hypersetup{colorlinks,pdfhighlight=/O,citecolor=black,
-     filecolor=black,urlcolor=black,linkcolor=black,pagecolor=black,
+     filecolor=black,urlcolor=black,linkcolor=black,
      breaklinks=true,pdfpagemode=UseNone,plainpages=false,
 %     backref=true,pagebackref=true,breaklinks=true,
-     pdfauthor={},
-     pdfsubject={thesis},
-     pdftitle={},
-     pdfkeywords={}}
+     pdfauthor={Pavel Trutman},
+     pdfsubject={Bachelor thesis},
+     pdftitle={Minimal Problem Solver Generator},
+     pdfcreator={Pavel Trutman},
+     pdfkeywords={computer vision} {robotics} {minimal problems} {polynomials equations} {Gr\"obner basis},
+  }
 \else
   \usepackage{color,graphicx}
 \fi
@@ -62,7 +64,7 @@
 %  %\renewcommand*\captionformat{\ } % does not operate!
 %  \captionindent=\parindent
 \addtokomafont{caption}{\small}
-\addtokomafont{captionlabel}{\sfb}
+\addtokomafont{captionlabel}{\sffamily \bfseries}
 \renewcommand*{\captionformat}{~~}
 \setcapindent{\parindent}
 

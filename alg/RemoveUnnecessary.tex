@@ -21,7 +21,7 @@
 	\State $filter_{Old} \gets filter$
 	\State $filter \gets filter \backslash \{up, up+1, \dots, down\}$
 	\State $\tilde{M} \gets$ Reduction to a Row Echelon Form of $M$ only with rows specified by $filter$
-        \State $v \gets Check\ Action\ Matrix\ Conditions(\tilde{M}, variable, algB)$
+        \State $v \gets$ \textit{CheckActionMatrixConditions}$(\tilde{M}, variable, algB)$
 	\If{$v = variable$}
           \State $up \gets down + 1$
 	  \State $step \gets 2 step$
