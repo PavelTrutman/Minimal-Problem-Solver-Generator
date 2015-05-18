@@ -14,7 +14,7 @@
       \State $m$ an element of $\textrm{M}(F)\backslash Done$
       \State $Done \gets Done \cup \{m\}$
       \If{$m$ is top reducible modulo $G$}
-        \State $m = m^\prime \cdot\textrm{LM}(f)$ for some $f \in G$ and some monomial $m^\prime$
+        \State $m = m^\prime\LM(f)$ for some $f \in G$ and some monomial $m^\prime$
         \State $F \gets F \cup \big\{multiply($\textit{Simplify}$(m^\prime, f, \mathcal{F}))\big\}$
       \EndIf
     \EndWhile
