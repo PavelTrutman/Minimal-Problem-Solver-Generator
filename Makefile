@@ -20,7 +20,7 @@ graphs/%.pdf: graphs/%.eps
 graphs/%.eps: sources/graphs/%.dat sources/graphs/%.in
 	gnuplot sources/graphs/$*.in
  
-sources/graphs/%.dat: sources/graphs/%.mat sources/graphs/prepare.m
+sources/graphs/%.dat: sources/graphs/*.mat sources/graphs/prepare.m
 	matlab -nosplash -nodesktop -r "prepare('$*')"
 
 .PRECIOUS: sources/graphs/%.dat
