@@ -8,7 +8,7 @@ set xlabel "log$_{10}\\Big(\\big|$error$\\big|\\Big)$"
 set ylabel "Frequency"
 set samples 10000
 
-plot [:10][:]'sources/graphs/part.dat' using 1:2 title 'Without matrix partitioning' smooth bezier lt 1 lc rgb "blue" lw 3, \
-     'sources/graphs/part.dat' using 1:3 title 'Last elimination with matrix partitioning' smooth bezier lt 1 lc rgb "red" lw 3, \
-     'sources/graphs/part.dat' using 1:4 title 'All eliminations with matrix partitioning' smooth bezier lt 1 lc rgb "green" lw 3, \
+plot [:10][:]'sources/graphs/part.dat' using 1:2 title 'Without matrix partitioning (0 zero errors)' smooth bezier lt 1 lc rgb "blue" lw 3, \
+     'sources/graphs/part.dat' using 1:3 title 'Last elimination with matrix partitioning (0 zero errors)' smooth bezier lt 1 lc rgb "red" lw 3, \
+     'sources/graphs/part.dat' using 1:4 title 'All eliminations with matrix partitioning (0 zero errors)' smooth bezier lt 1 lc rgb "green" lw 3, \
 
