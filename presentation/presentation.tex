@@ -29,7 +29,25 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
 
 \begin{document}
 \bigfigfalse
-\maketalktitlepage
+%\maketalktitlepage
+\begin{talktitlepage}
+  %\placeat{\Put(.5,.5){\thetalklogo}}
+  \mbox{}\\
+  {\Large\bfseries \thetitle }\\[\baselineskip]
+  \theauthor \\[\baselineskip]
+  %\begin{tabular}{rl}
+  %  \textit{Vedoucí práce:}& \textit{Ing. Tomáš Pajdla, Ph.D.}\\
+  %  \textit{Oponent:} & \textit{doc. Ing. Radim Šára, Dr. Tech.}
+  %\end{tabular}
+  \textit{Vedoucí práce: Ing.\ Tomáš Pajdla, Ph.D.}
+  \vfill
+  \thetalklogo\\[1cm]
+  Centrum strojového vnímání\\
+  Katedra kybernetiky\\
+  Fakulta elektrotechnická\\
+  České vysoké učení technické v Praze
+  \vspace{2cm}
+\end{talktitlepage}
 
 % --------------------------------------------------------------------------- 
 \begin{cmptalkslide}[Obsah]
@@ -42,7 +60,7 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
     \begin{itemize}
       \item Víceeliminační postupy řešení
       \item Rozklad matic
-      \item $F_4$ Algoritmus
+      \item Algoritmus $F_4$
     \end{itemize}
     \end{narrow}
     \begin{itemize}
@@ -55,10 +73,15 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
 \begin{cmptalkslide}[Motivace]
   \begin{itemize}
     \item Mnoho problémů v počítačovém vidění vede na řešení soustav polynomiálních rovnic
-    \item Tyto soustavy chceme umět řešit rychle $\rightarrow$ speciální postupy řešení
+    \item Tyto soustavy je třeba řešit rychle $\rightarrow$ speciální postupy řešení
     \item Postupy řešení lze generovat automaticky $\rightarrow$ Automatický generátor \cite{AutoGen}
     \item Cílem je vylepšit Automatický generátor \cite{AutoGen}, aby generoval rychlejší a stabilnější postupy řešení
   \end{itemize}
+
+  \placeat{
+    \Put(0,0)[lb]{\footnotesize \cite{AutoGen} Z. Kukelova, M. Bujnak, T. Pajdla. Automatic generator of minimal problem solvers.}
+  }
+
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
@@ -73,7 +96,8 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
   \end{itemize}
 
   \placeat{
-    \Put(.5,0.3){\includegraphics[width=25cm]{AutomaticGenerator-presentation.pdf}}
+    \Put(.5,0.4){\includegraphics[width=25cm]{AutomaticGenerator-presentation.pdf}}
+    \Put(0,0)[lb]{\footnotesize \cite{AutoGen} Z. Kukelova, M. Bujnak, T. Pajdla. Automatic generator of minimal problem solvers.}
   }
 
 \end{cmptalkslide}
@@ -86,8 +110,13 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
     %\item Toto opakujeme dokud se generují nové polynomy
     %\item Zvýšíme stupeň generovaných polynomů o $d$
     \item Počet eliminací lze jednoduše řídit
-    \item Víceeliminační postupy řešení jsou efektivní zvlášťe pro soustavy s velkým počtem neznámých
+    \item Efektivní zvláště pro soustavy s~velkým počtem neznámých
   \end{itemize}
+
+  \placeat{
+    \Put(.5,0.3){\includegraphics[width=25cm]{MultipleElimination-presentation.pdf}}
+  }
+
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
@@ -101,18 +130,31 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
   \end{itemize}
 
   \placeat{
-    \Put(.75,0.25){\includegraphics[width=14cm]{PaToH/permutation.pdf}}
+    \Put(.75,0.25){\includegraphics[width=14cm]{PaToH/permutation-presentation.pdf}}
+    \Put(0.75, 0.49){\scriptsize{Nenulové prvky matice}}
+    \Put(0.75, 0.01){\tiny{Sloupce}}
+    \Put(0.54, 0.26){\rotatebox{90}{\tiny{Řádky}}}
+    \Put(0,.15)[lb]{\footnotesize \cite{SBBD} Z. Kukelova, M. Bujnak, J. Heller, T. Pajdla.}
+    \Put(0.03,.11)[lb]{\footnotesize Singly-bordered block-diagonal form for minimal}
+    \Put(0.03,.07)[lb]{\footnotesize problem solvers.}
   }
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
-\begin{cmptalkslide}[$F_4$ Algoritmus]
+\begin{cmptalkslide}[Algoritmus $F_4$]
   \begin{itemize}
-    \item $F_4$ Algortimus \cite{F4} konstruuje Gr\"obnerovu bázi systému polynomů
+    \item Algoritmus $F_4$ \cite{F4} konstruuje Gr\"obnerovu bázi systému polynomů
     \item Nejprve jsme algoritmus implementovali v Maple, abychom jemu porozuměli a ověřili funkčnost implementace
-    \item $F_4$ Algoritmus jsme implementovali do Automatického generátoru \cite{AutoGen}
-    \item Uživatel si může vybrat, zda se polynomy budou generovat systematicky nebo s využitím $F_4$ Algoritmu
+    \item Algoritmus $F_4$ jsme implementovali do Automatického generátoru \cite{AutoGen}
+    \item Určuje, jak generovat nové polynomy
+    \item Uživatel si může vybrat, zda se polynomy budou generovat systematicky nebo s využitím algoritmu $F_4$
   \end{itemize}
+
+  \placeat{
+    \Put(0,0.04)[lb]{\footnotesize \cite{F4} J.-C. Faugère. A new efficient algorithm for computing gröbner bases ($f_4$).}
+    \Put(0,0)[lb]{\footnotesize \cite{AutoGen} Z. Kukelova, M. Bujnak, T. Pajdla. Automatic generator of minimal problem solvers.}
+  }
+
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
@@ -130,24 +172,42 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
 % --------------------------------------------------------------------------- 
 \begin{cmptalkslide}[Experimenty]
   \begin{itemize}
-    \item Postupy řešení vygenerované starou a novou implementací Automatického generátoru jsme srovnávali pro minimální problém "9-point relative pose different radial distortion problem" \cite{9pt}
-    \item U víceeliminačního postupu řešení jsme dosáhli 1,5 násobného zrychlení za mírně zhoršené stability
-    \item Posupy řešení používající strategii $F_4$ Algoritmu \cite{F4} jsou $2\times$ rychlejší a stejně stabilní
-    \item Užitím rozkladu matic jsme dosáhli dalšího zrychlení o~20~\% v obou případech při zachování stejné numerické stability
+    %\item Postupy řešení vygenerované původní a novou implementací Automatického generátoru jsme srovnávali pro minimální problém "9-point relative pose different radial distortion problem" \cite{9pt}
+    \item Testovali jsme na minimálním problému "9-point relative pose different radial distortion problem" \cite{9pt}
+    \item Postupy řešení vygenerované novou implementací jsme srovnali s~původní verzí Automatického generátoru
+    \item Víceeliminační postupy řešení: zrychlení 1,5$\times$, mírně zhoršená stabilita
+    \item Posupy řešení s $F_4$ strategií: zrychlení 2$\times$, stejná stabilita
+    \item Rozklad matic: další zrychlení o~20~\% v obou případech, numerická stabilita zachována
   \end{itemize}
+
+  \placeat{
+    \Put(0,0.04)[lb]{\footnotesize \cite{9pt} Z. Kukelova, M. Byröd, K. Josephson, T. Pajdla, K. Åström. Fast and robust numerical solutions}
+    \Put(0.03,0)[lb]{\footnotesize minimal problems for cameras with radial distortion.}
+  }
+
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
 \begin{cmptalkslide}[Shrnutí]
   \begin{itemize}
-    \item Vylepšili jsme Automatický generátor \cite{AutoGen}
-    \item Nyní umožňuje generovat postupy řešení s více eliminacemi
-    \item Umožňuje užít rozkladu řídkých matic a tím zrychlit Gauss-Jordanovu eliminaci těchto matic
-    \item Implementovali jsme $F_4$ Algoritmus v Maple
-    \item Uživatel si může vybrat, zda se budou polynomy generovat systematicky nebo pomocí strategie z $F_4$ Algoritmu \cite{F4}
+    \item Rozšířili jsme Automatický generátor \cite{AutoGen}
+    \item Generuje postupy řešení s více eliminacemi
+    %\item Umožňuje užít rozkladu řídkých matic a tím zrychlit Gauss-Jordanovu eliminaci
+    \item Zrychlení Gauss-Jordanových eliminací pomocí rozkladu matic
+    \item Implementace algoritmu $F_4$ \cite{F4} v Maple
+    \item Možnost volby, zda se budou polynomy generovat systematicky nebo algoritmem $F_4$ \cite{F4}
     %\item Implementovali jsme benchmark Automatického generátoru
-    \item Dosáhli jsme až dvojnásobného zrychlení generovaných postupů řešení pro vybraný problém \cite{9pt}
+    \item Dosaženo dvojnásobného zrychlení generovaných postupů řešení pro vybraný problém \cite{9pt}
   \end{itemize}
+
+  \placeat{
+    \Put(0,0.12)[lb]{\footnotesize \cite{F4} J.-C. Faugère. A new efficient algorithm for computing gröbner bases ($f_4$).}
+    \Put(0,0.08)[lb]{\footnotesize \cite{AutoGen} Z. Kukelova, M. Bujnak, T. Pajdla. Automatic generator of minimal problem solvers.}
+    \Put(0,0.04)[lb]{\footnotesize \cite{9pt} Z. Kukelova, M. Byröd, K. Josephson, T. Pajdla, K. Åström. Fast and robust numerical solutions}
+    \Put(0.03,0)[lb]{\footnotesize minimal problems for cameras with radial distortion.}
+    \Put(.5,0.24){\large \textbf{Děkuji za pozornost}}
+  }
+
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- Bibliography
@@ -157,14 +217,14 @@ Oponent: doc.\ Dr.\ Ing.\ Radim Šára}
 \end{cmptalkslide}
 
 % --------------------------------------------------------------------------- 
-\begin{cmptalkslide}[]
-  \begin{center}
-  \vfill
-  {\Large \textbf{Děkuji za pozornost}}\\[5cm]
-  {\large \textbf{Prostor pro vaše otázky}}
-  \vfill
-  \end{center}
-\end{cmptalkslide}
+%\begin{cmptalkslide}[]
+%  \begin{center}
+%  \vfill
+%  {\Large \textbf{Děkuji za pozornost}}\\[5cm]
+%  {\large \textbf{Prostor pro vaše otázky}}
+%  \vfill
+%  \end{center}
+%\end{cmptalkslide}
 
 
 \end{document}
